@@ -1,0 +1,15 @@
+#homepage-outtercontainer {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to right, #29323c, #485563);
+    height: 100vh;
+}
+
+#homepage-wagerindex {
+    margin: 100px;
+    width: 1300px;
+    padding: 30px;
+    background-color: rgba(4, 38, 98, 0.392);
+    border-radius: 20px;
+}
+

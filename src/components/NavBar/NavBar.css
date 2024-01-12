@@ -1,0 +1,39 @@
+#navbar-outtercontainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    display: flex;
+    height: 100px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#navbar-leftside {
+    font-size: 30px;
+    display: flex;
+}
+
+#navbar-userbalance {
+    margin-left: 30px;
+}
+
+#navbar-middle {
+    font-size: 40px;
+    position: relative;
+    left: -35px;
+    font-family: 'Courier New', monospace;
+}
+
+#navbar-wallet {
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+#navbar-leftside i,
+#navbar-middle a{
+    color: white;
+    text-decoration: none;
+}
