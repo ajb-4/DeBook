@@ -1,26 +1,32 @@
 import './WagerIndex.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchGames, getGames } from '../../store/games';
+import WagerIndexItem from '../WagerIndexItem';
 
 
 const WagerIndex = () => {
 
+    const dispatch = useDispatch();
+    const games = useSelector(getGames);
 
+    useEffect(() => {
+        dispatch(fetchGames());
+    }, [dispatch])
 
-
+    const first8Games = games.slice(0, 8);
 
 
     return (
         <>
             <div id='wagerindex-outtercontainer'>
                 <div id='wagerindex-header'>Games to bet on</div>
-                <div id='wagerindex-container'>
-                    <div id='wagerindexitem'>Wager 1</div>
-                    <div id='wagerindexitem'>Wager 2</div>
-                    <div id='wagerindexitem'>Wager 3</div>
-                    <div id='wagerindexitem'>Wager 4</div>
-                    <div id='wagerindexitem'>Wager 5</div>
-                    <div id='wagerindexitem'>Wager 6</div>
-                    <div id='wagerindexitem'>Wager 7</div>
-                    <div id='wagerindexitem'>Wager 8</div>
+                <div id='wagerindex-container'>   
+                    {first8Games.map(game =>
+                        <div id='wagerindexitem'>
+                            <WagerIndexItem game={game} />
+                        </div> 
+                    )}
                 </div>
             </div>
 

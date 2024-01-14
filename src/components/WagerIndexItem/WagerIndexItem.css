@@ -1,0 +1,45 @@
+
+
+#wagerindexitem-sporttype {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 14px;
+    margin-top: -10px;
+}
+
+#wagerindexitem-matchup {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 22px;
+}
+
+#wagerindexitem-mlheader {
+    display: flex;
+    justify-content: center;
+    font-weight: 550;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#wagerindexitem-moneylines {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+#wagerindexitem-spreadheader {
+    display: flex;
+    justify-content: center;
+    font-weight: 550;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+#wagerindexitem-spreads {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 20px;
+}

@@ -1,8 +1,9 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { thunk } from 'redux-thunk';
+import games from './games';
 
 const rootReducer = combineReducers({
-  // Your reducers go here
+  games
 });
 
 let enhancer;
