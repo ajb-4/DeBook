@@ -50,7 +50,6 @@ const NavBar = () => {
         checkConnectionAndBalance();
     }, []);
 
-
     return (
         <>
             <div id='navbar-outtercontainer'>
