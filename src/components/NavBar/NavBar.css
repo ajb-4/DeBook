@@ -17,6 +17,14 @@
 
 #navbar-userbalance {
     margin-left: 30px;
+    display: flex;
+}
+
+#navbar-userbalancevalue {
+    font-size: 30px;
+    margin-left: 30px;
+    color: white;
+    font-family: 'Courier New', monospace;
 }
 
 #navbar-middle {
@@ -26,14 +34,24 @@
     font-family: 'Courier New', monospace;
 }
 
-#navbar-wallet {
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-}
-
 #navbar-leftside i,
 #navbar-middle a{
     color: white;
     text-decoration: none;
 }
+
+#navbar-wallet {
+    display: flex;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+#navbar-connectedheader {
+    font-size: 20px;
+    color: white;
+    font-family: 'Courier New', monospace;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+

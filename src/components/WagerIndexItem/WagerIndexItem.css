@@ -1,4 +1,9 @@
-
+#wagerindexitem-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+}
 
 #wagerindexitem-sporttype {
     display: flex;
@@ -10,36 +15,36 @@
 #wagerindexitem-matchup {
     display: flex;
     justify-content: space-around;
-    margin-top: 10px;
     font-size: 22px;
 }
 
-#wagerindexitem-mlheader {
-    display: flex;
-    justify-content: center;
+#wagerindexitem-atsign {
     font-weight: 550;
-    margin-top: 10px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
     font-size: 14px;
+    margin-top: 5px;
 }
 
 #wagerindexitem-moneylines {
     display: flex;
     justify-content: space-around;
-    margin-top: 10px;
     font-size: 20px;
 }
 
-#wagerindexitem-spreadheader {
-    display: flex;
-    justify-content: center;
+#wagerindexitem-mlheader {
     font-weight: 550;
-    margin-top: 10px;
     font-size: 14px;
+    margin-top: 5px;
 }
 
 #wagerindexitem-spreads {
     display: flex;
     justify-content: space-around;
-    margin-top: 10px;
     font-size: 20px;
+}
+
+#wagerindexitem-spreadheader {
+    font-weight: 550;
+    font-size: 14px;
+    margin-top: 5px;
 }
