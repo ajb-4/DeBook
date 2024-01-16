@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { utils } from 'ethers/lib.esm';
 import { Web3Provider } from '@ethersproject/providers';
 import './NavBar.css';
@@ -27,6 +27,28 @@ const NavBar = () => {
             console.error('Error connecting to Metamask:', error.message);
         }
     };
+
+    useEffect(() => {
+        const checkConnectionAndBalance = async () => {
+            try {
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length > 0) {
+
+                    setConnected(true);
+
+                    const chainId = 5;
+                    const provider = new Web3Provider(window.ethereum, chainId);
+                    const signer = provider.getSigner();
+                    const userBalance = await signer.getBalance();
+                    setBalance(utils.formatEther(userBalance));
+                }
+            } catch (error) {
+                console.error('Error checking connection and balance:', error.message);
+            }
+        };
+
+        checkConnectionAndBalance();
+    }, []);
 
 
     return (
