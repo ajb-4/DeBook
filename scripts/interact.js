@@ -1,8 +1,8 @@
 const { ethers } = require('hardhat');
 
 async function main() {
-    const provider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:8545/"); // Use your local node URL
-    const privateKey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
+    const provider = new ethers.providers.JsonRpcProvider("https://goerli.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829");
+    const privateKey = "12170a444ceec99dcea5abe34facacc8bb15f013cd13f86aa8699c530dbdaa8a";
   
     const wallet = new ethers.Wallet(privateKey, provider);
   
@@ -10,7 +10,7 @@ async function main() {
     const DeBook = await ethers.getContractFactory("DeBook");
   
     // Connect to the deployed contract using its address
-    const deBookAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+    const deBookAddress = "0xeE5ff19fa56916dd3bD7074978df457007933603";
     console.log("Connecting to contract at address:", deBookAddress);
     const deBook = DeBook.attach(deBookAddress);
   

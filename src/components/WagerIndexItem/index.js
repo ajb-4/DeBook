@@ -19,9 +19,9 @@ const WagerIndexItem = ({game}) => {
                     <div>{game.sport_title}</div>
                 </div>
                 <div id='wagerindexitem-matchup'>
-                    <div id='wagerindexitem-hometeam'>{game.home_team.split(' ').pop()}</div>
-                    <div id='wagerindexitem-atsign'>@</div>
                     <div id='wagerindexitem-awayteam'>{game.away_team.split(' ').pop()}</div>
+                    <div id='wagerindexitem-atsign'>@</div>
+                    <div id='wagerindexitem-hometeam'>{game.home_team.split(' ').pop()}</div>
                 </div>
                 <div id='wagerindexitem-moneylines'>
                     <div id='wagerindexitem-betoption'>{formattedNum(homeMl)}</div>
