@@ -11,7 +11,7 @@ contract DeBook {
     // Placeholder event for settling the wager
     event WagerSettled(address indexed creator, address indexed acceptor, uint256 amount, string description, string result);
 
-    // Struct representing a wager
+    // Need to change the description to margin, type, and value
     struct Wager {
         address creator;
         uint256 amount;
