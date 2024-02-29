@@ -1,15 +1,33 @@
 #homepage-outtercontainer {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     background: linear-gradient(to right, #29323c, #485563);
     height: 100vh;
 }
 
-#homepage-wagerindex {
-    margin: 100px;
+#homepage-gameindex {
+    margin-top: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
     width: 1300px;
     padding: 30px;
     background-color: rgba(4, 38, 98, 0.392);
     border-radius: 20px;
+    overflow: auto;
+}
+
+#homepage-wagerindex {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    margin-left: 100px;
+    margin-right: 100px;
+    width: 1300px;
+    height: 500px;
+    padding: 30px;
+    background-color: rgba(4, 38, 98, 0.392);
+    border-radius: 20px;
+    overflow: auto;
 }
 

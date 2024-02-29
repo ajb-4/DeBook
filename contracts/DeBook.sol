@@ -4,11 +4,11 @@ pragma solidity ^0.8.0;
 contract DeBook {
     enum WagerType { Spread, Moneyline, OverUnder }
 
-    event WagerCreated(address indexed creator, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin);
+    event WagerCreated(address indexed creator, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string outcome);
 
-    event WagerAccepted(address indexed acceptor, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin);
+    event WagerAccepted(address indexed acceptor, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string outcome);
 
-    event WagerSettled(address indexed creator, address indexed acceptor, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string result);
+    event WagerSettled(address indexed creator, address indexed acceptor, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string outcome, string result);
 
     struct Wager {
         address creator;
@@ -16,6 +16,7 @@ contract DeBook {
         uint256 gameId;
         WagerType wagerType;
         int256 margin;
+        string outcome;
         bool isAccepted;
         address acceptor;
     }
@@ -24,7 +25,7 @@ contract DeBook {
 
     uint256 private wagerCounter;
 
-    function createWager(uint256 amount, uint256 gameId, WagerType wagerType, int256 margin) external {
+    function createWager(uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string memory outcome) external {
         wagerCounter++;
         Wager storage newWager = wagers[wagerCounter];
         newWager.creator = msg.sender;
@@ -32,9 +33,10 @@ contract DeBook {
         newWager.gameId = gameId;
         newWager.wagerType = wagerType;
         newWager.margin = margin;
+        newWager.outcome = outcome;
         newWager.isAccepted = false;
 
-        emit WagerCreated(msg.sender, amount, gameId, wagerType, margin);
+        emit WagerCreated(msg.sender, amount, gameId, wagerType, margin, outcome);
     }
 
     function acceptWager(uint256 wagerId) external payable {
@@ -45,7 +47,7 @@ contract DeBook {
         existingWager.isAccepted = true;
         existingWager.acceptor = msg.sender;
 
-        emit WagerAccepted(msg.sender, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin);
+        emit WagerAccepted(msg.sender, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome);
     }
 
     // Placeholder function for settling the wager (to be implemented later)
@@ -57,6 +59,6 @@ contract DeBook {
         // This function can be extended with the actual settlement logic
         // For example, transferring funds to the winning party, etc.
 
-        emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, result);
+        emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, result);
     }
 }
