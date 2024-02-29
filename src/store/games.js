@@ -31,7 +31,7 @@ export const fetchGame = (gameId) => async dispatch => {
 export const fetchGames = () => async dispatch => {
     const apiKey = 'a1a74e05fc54445bbb59e3f10bd275ee';
 
-    const url = `https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${apiKey}&regions=us&markets=h2h,spreads&oddsFormat=american`;
+    const url = `https://api.the-odds-api.com/v4/sports/basketball_nba/odds/?apiKey=${apiKey}&regions=us&markets=h2h,spreads&oddsFormat=american`;
 
     try {
         const response = await fetch(url);
