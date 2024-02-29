@@ -1,4 +1,6 @@
 const { ethers } = require("hardhat");
+const fs = require('fs');
+const { abi } = require("../artifacts/contracts/DeBook.sol/DeBook.json");
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider("https://goerli.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829"); // Use your local node URL or Infura URL
@@ -6,14 +8,21 @@ async function main() {
 
   const wallet = new ethers.Wallet(privateKey, provider);
 
-  // Load the compiled contract artifact
   const DeBook = await ethers.getContractFactory("DeBook");
-
-  // Deploy the contract
+  
   const deBook = await DeBook.connect(wallet).deploy();
   await deBook.deployed();
 
   console.log("DeBook deployed to:", deBook.address);
+  console.log("DeBook object:", deBook);
+
+  if (abi) {
+    const abiString = JSON.stringify(abi);
+    fs.writeFileSync('./src/components/DeBookABI.json', abiString);
+    console.log("ABI written to DeBookABI.json");
+  } else {
+    console.error("ABI not found in artifact.");
+  }
 }
 
 main().catch((error) => {

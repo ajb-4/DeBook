@@ -29,7 +29,6 @@ const GameIndex = () => {
                     )}
                 </div>
             </div>
-
         </>
     )
 }
