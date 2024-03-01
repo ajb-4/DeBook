@@ -25,6 +25,10 @@ contract DeBook {
 
     uint256 private wagerCounter;
 
+    function getWagerCounter() external view returns (uint256) {
+        return wagerCounter;
+    }
+
     function createWager(uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string memory outcome) external {
         wagerCounter++;
         Wager storage newWager = wagers[wagerCounter];

@@ -14,7 +14,6 @@ const NavBar = () => {
             if (!connected) {
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
             } else {
-                debugger
                 await window.ethereum.request({ method: 'eth_accounts', params: [] });
             }
             const chainId = 5;

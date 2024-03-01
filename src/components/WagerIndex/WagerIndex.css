@@ -23,3 +23,8 @@
     padding: 25px;
     color: white;
 }
+
+#wagerindexitem > input, #wagerindexitem > button {
+    margin: 15px;
+    border-radius: 5px;
+}
