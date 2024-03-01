@@ -30,6 +30,25 @@ const WagerIndex = () => {
         }
     };
 
+    const acceptWager = async (wagerId) => {
+        try {
+            setLoading(true);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await window.ethereum.enable();
+            const signer = provider.getSigner();
+            const contractAddress = '0x7C70063f53995719fd6620572CFe1D63159599ee';
+            const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
+            debugger
+            await contract.acceptWager(wagerId, { value: wagers[wagerId - 1].amount });
+            setLoading(false);
+            // Add logic to handle successful acceptance of wager
+        } catch (error) {
+            debugger
+            setLoading(false);
+            setError(error.message);
+        }
+    };
+
     useEffect(() => {
         async function fetchWagers() {
             try {
@@ -45,18 +64,18 @@ const WagerIndex = () => {
                     promises.push(contract.wagers(i));
                 }
                 const fetchedWagers = await Promise.all(promises);
-                setWagers(fetchedWagers);
+                setWagers(fetchedWagers.map((wager, index) => ({
+                    ...wager,
+                    wagerId: index + 1 // Add wagerId property to each wager
+                })));
                 setLoading(false);
-                debugger
             } catch (error) {
                 setLoading(false);
-                debugger
                 setError(error.message);
             }
         }
     
         fetchWagers();
-        debugger
     }, []);
 
     function wagerTypeName(wagerType) {
@@ -97,7 +116,13 @@ const WagerIndex = () => {
                             <div>Wager Type: {wagerTypeName(wager.wagerType)}</div>
                             <div>Amount: {ethers.utils.formatEther(wager.amount)} ETH</div>
                             <div>Creator: {shortenAddress(wager.creator)}</div>
-                            {/* <div>Acceptor: {wager.acceptor}</div> */}
+                            {wager.isAccepted ? (
+                                <div>Accepted by: {shortenAddress(wager.acceptor)}</div>
+                            ) : (
+                                <div>
+                                    <button onClick={() => acceptWager(wager.wagerId)}>Accept Wager</button>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -107,5 +132,6 @@ const WagerIndex = () => {
 };
 
 export default WagerIndex;
+
 
 

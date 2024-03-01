@@ -24,7 +24,17 @@
     color: white;
 }
 
-#wagerindexitem > input, #wagerindexitem > button {
+#wagerindexitem > input {
     margin: 15px;
     border-radius: 5px;
+}
+
+#wagerindexitem button {
+    margin: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#wagerindexitem > div {
+    margin-bottom: 5px;
 }
