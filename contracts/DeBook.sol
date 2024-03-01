@@ -29,7 +29,9 @@ contract DeBook {
         return wagerCounter;
     }
 
-    function createWager(uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string memory outcome) external {
+    function createWager(uint256 gameId, WagerType wagerType, int256 margin, string memory outcome) external payable {
+        require(msg.value > 0, "Amount must be greater than 0");
+        uint256 amount = msg.value;
         wagerCounter++;
         Wager storage newWager = wagers[wagerCounter];
         newWager.creator = msg.sender;

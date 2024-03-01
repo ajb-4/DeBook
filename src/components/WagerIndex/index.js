@@ -14,14 +14,45 @@ const WagerIndex = () => {
 
     const createWager = async () => {
         try {
+
+            if (amount === "") {
+                setError("Please enter a valid amount");
+                return;
+            }
+    
+            const amountValue = parseFloat(amount);
+    
+            if (isNaN(amountValue) || amountValue <= 0) {
+                setError("Please enter a valid positive amount");
+                return;
+            }
+    
+            if (gameId === "") {
+                setError("Please enter a valid game ID");
+                return;
+            }
+    
+            if (outcome === "") {
+                setError("Please enter a valid outcome");
+                return;
+            }
+    
+            if (margin === "") {
+                setError("Please enter a valid margin");
+                return;
+            }
+    
             setLoading(true);
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const contractAddress = '0x7C70063f53995719fd6620572CFe1D63159599ee';
+            const contractAddress = '0x2487F8aecA38BEA2B66a3d80f3943BbcAc0A5FF7';
             const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
             const amountInWei = ethers.utils.parseEther(amount);
-            await contract.createWager(amountInWei, gameId, 0, margin, outcome);
+            
+            // Call the createWager function on the smart contract
+            const transaction = await contract.createWager(gameId, 0, margin, outcome, { value: amountInWei });
+            await transaction.wait();    
             setLoading(false);
             // Add logic to handle successful wager creation
         } catch (error) {
@@ -29,6 +60,7 @@ const WagerIndex = () => {
             setError(error.message);
         }
     };
+    
 
     const acceptWager = async (wagerId) => {
         try {
@@ -36,7 +68,7 @@ const WagerIndex = () => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const contractAddress = '0x7C70063f53995719fd6620572CFe1D63159599ee';
+            const contractAddress = '0x2487F8aecA38BEA2B66a3d80f3943BbcAc0A5FF7';
             const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
             debugger
             await contract.acceptWager(wagerId, { value: wagers[wagerId - 1].amount });
@@ -54,7 +86,7 @@ const WagerIndex = () => {
             try {
                 setLoading(true);
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const contractAddress = '0x7C70063f53995719fd6620572CFe1D63159599ee';
+                const contractAddress = '0x2487F8aecA38BEA2B66a3d80f3943BbcAc0A5FF7';
                 const contract = new ethers.Contract(contractAddress, DeBookABI, provider);
                 const wagersCount = await contract.getWagerCounter();
     
@@ -66,7 +98,7 @@ const WagerIndex = () => {
                 const fetchedWagers = await Promise.all(promises);
                 setWagers(fetchedWagers.map((wager, index) => ({
                     ...wager,
-                    wagerId: index + 1 // Add wagerId property to each wager
+                    wagerId: index + 1
                 })));
                 setLoading(false);
             } catch (error) {
