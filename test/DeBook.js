@@ -10,7 +10,7 @@ describe("DeBook contract", function () {
 
   beforeEach(async function () {
     DeBook = await ethers.getContractFactory("DeBook");
-    [owner, addr1, addr2, _] = await ethers.getSigners();
+    [owner, addr1, addr2] = await ethers.getSigners();
     deBook = await DeBook.deploy();
     await deBook.deployed();
   });
@@ -22,7 +22,7 @@ describe("DeBook contract", function () {
     const margin = 10;
     const outcome = "Team A";
     
-    await deBook.connect(addr1).createWager(amount, gameId, wagerType, margin, outcome);
+    await deBook.connect(addr1).createWager(gameId, wagerType, margin, outcome, { value: amount });
     
     const wager = await deBook.wagers(1);
     expect(wager.creator).to.equal(addr1.address);
@@ -41,7 +41,7 @@ describe("DeBook contract", function () {
     const margin = 10;
     const outcome = "Team A";
 
-    await deBook.connect(addr1).createWager(amount, gameId, wagerType, margin, outcome);
+    await deBook.connect(addr1).createWager(gameId, wagerType, margin, outcome, { value: amount });
 
     const ethRequired = ethers.utils.parseEther("1");
 
@@ -56,11 +56,11 @@ describe("DeBook contract", function () {
     const wagerType = 0;
     const margin = 10;
     const outcome = "Team A";
-  
-    await deBook.connect(addr1).createWager(amount, gameId, wagerType, margin, outcome);
-  
+
+    await deBook.connect(addr1).createWager(gameId, wagerType, margin, outcome, { value: amount });
+
     const ethRequired = ethers.utils.parseEther("1");
-  
+
     await expect(
       deBook.connect(addr2).acceptWager(1, { value: ethRequired.sub(ethers.utils.parseEther("0.5")) })
     ).to.be.revertedWith("Incorrect wager amount");

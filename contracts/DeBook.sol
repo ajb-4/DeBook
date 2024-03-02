@@ -56,15 +56,22 @@ contract DeBook {
         emit WagerAccepted(msg.sender, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome);
     }
 
-    // Placeholder function for settling the wager (to be implemented later)
     function settleWager(uint256 wagerId, string memory result) external {
-        Wager storage existingWager = wagers[wagerId];
-        require(existingWager.isAccepted, "Wager has not been accepted");
+    Wager storage existingWager = wagers[wagerId];
+    require(existingWager.isAccepted, "Wager has not been accepted");
 
-        // Placeholder logic for settling the wager
-        // This function can be extended with the actual settlement logic
-        // For example, transferring funds to the winning party, etc.
+    require(keccak256(bytes(result)) == keccak256(bytes(existingWager.outcome)), "Invalid outcome");
 
-        emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, result);
+    // Compare the actual outcome with the wager outcome
+    if (keccak256(bytes(result)) == keccak256(bytes(existingWager.outcome))) {
+        // If the outcomes match, transfer funds to the creator
+        payable(existingWager.creator).transfer(existingWager.amount);
+    } else {
+        // If the outcomes don't match, transfer funds to the acceptor
+        payable(existingWager.acceptor).transfer(existingWager.amount);
+    }
+
+    // Emit event to indicate the wager has been settled
+    emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, result);
     }
 }
