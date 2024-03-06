@@ -1,19 +1,46 @@
 #wagermodal-container {
     position: fixed;
-    top: 200px;
-    right: 0;
+    /* // comment in to add black background 
+    height: 100%;
+    width: 100%; */
+    top: calc(50vh - 250px);
+    right: calc(50vw - 500px);
     background-color: rgba(0, 0, 0);
     z-index: 10;
     overflow-x: hidden;
     border-radius: 20px;
 }
 
-#wagermodal-createwagerform {
-    height: 200px;
-    width: 400px;
+#wagermodal-createwagercontainer {
+    height: 500px;
+    width: 1000px;
+    display: flex;
+    justify-content: space-around;
     box-sizing: border-box;
     background-color: rgba(66, 92, 244, 0.244);
     border-radius: 20px;
-    padding: 40px;
+    padding: 20px;
     color: white;
+}
+
+#wagermodal-createwagerform {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#wagermodal-marketcontainer {
+    width: 300px;
+}
+
+#wagermodal-marketheader {
+    display: flex;
+    justify-content: space-around;
+}
+
+#wagermodal-orderbook {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }

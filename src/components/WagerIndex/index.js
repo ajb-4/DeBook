@@ -109,11 +109,12 @@ const WagerIndex = () => {
                                 <div>Accepted by: {shortenAddress(wager.acceptor)}</div>
                             ) : (
                                 <div>
-                                    <button onClick={() => acceptWager(wager.wagerId)}>Accept Wager</button>
+                                    <button onClick={() => acceptWager(wager.wagerId)} disabled={loading}>Accept Wager</button>
                                 </div>
                             )}
                         </div>
                     ))}
+                    {error && <div>{error}</div>}
                 </div>
             </div>
         </>

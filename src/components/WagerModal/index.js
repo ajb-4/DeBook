@@ -10,7 +10,6 @@ const WagerModal = ({ closeModal }) => {
     const [gameId, setGameId] = useState("");
     const [outcome, setOutcome] = useState("");
     const [margin, setMargin] = useState("");
-    const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -64,14 +63,29 @@ const WagerModal = ({ closeModal }) => {
     };
 return (
     <div id="wagermodal-container">
-        <div id='wagermodal-createwagerform'>
-            <span className="close" onClick={closeModal}>&times;</span>
-            <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" />
-            <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" />
-            <input type="text" value={outcome} onChange={(e) => setOutcome(e.target.value)} placeholder="Enter outcome" />
-            <input type="number" value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin" />
-            <button onClick={createWager} disabled={loading}>Create Wager</button>
-            {error && <div>{error}</div>}
+        <div id='wagermodal-createwagercontainer'>
+            <div id='wagermodal-marketcontainer'>
+                <div id='wagermodal-marketheader'>
+                    <div>Price</div>
+                    <div>Amount</div>
+                </div>
+                <div id='wagermodal-orderbook'>
+                    <div>Offer 1</div>
+                    <div>Offer 2</div>
+                    <div>Offer 3</div>
+                    <div>Offer 4</div>
+                    <div>Offer 5</div>
+                </div>
+            </div>           
+            <div id='wagermodal-createwagerform'>
+                <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" />
+                <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" />
+                <input type="text" value={outcome} onChange={(e) => setOutcome(e.target.value)} placeholder="Enter outcome" />
+                <input type="number" value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin" />
+                <button onClick={createWager} disabled={loading}>Create Wager</button>
+                {error && <div>{error}</div>}
+                <span className="close" onClick={closeModal}>&times;</span>
+            </div>
         </div>
     </div>
   );
