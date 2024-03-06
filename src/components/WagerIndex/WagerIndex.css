@@ -3,9 +3,24 @@
 }
 
 #wagerindex-header {
+    display: flex;
     font-size: 30px;
     margin: 15px;
     color: white;
+}
+
+#wagerindex-createwager {
+    cursor: pointer;
+    margin-left: 40px;
+    font-family: 'Courier New', monospace;
+    color: white;
+    background-color: rgba(66, 92, 244, 0.244);
+    border: none;
+    border-radius: 5px;
+}
+
+#wagerindex-createwager:hover {
+    background-color: rgba(29, 223, 38, 0.796);
 }
 
 #wagerindex-container {

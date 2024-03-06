@@ -1,0 +1,19 @@
+#wagermodal-container {
+    position: fixed;
+    top: 200px;
+    right: 0;
+    background-color: rgba(0, 0, 0);
+    z-index: 10;
+    overflow-x: hidden;
+    border-radius: 20px;
+}
+
+#wagermodal-createwagerform {
+    height: 200px;
+    width: 400px;
+    box-sizing: border-box;
+    background-color: rgba(66, 92, 244, 0.244);
+    border-radius: 20px;
+    padding: 40px;
+    color: white;
+}
