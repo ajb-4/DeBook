@@ -75,6 +75,22 @@
     padding: 40px;
 }
 
+#wagermodal-createwagerform input {
+    height: 35px;
+    padding-left: 15px;
+    border-radius: 7px;
+    border: none;
+    background-color: rgba(46, 46, 46, 0.832);
+}
+
+#wagermodal-createwagerform input:hover {
+    border: 0.7px solid rgba(30, 193, 87, 0.671);
+}
+
 #wagermodal-createwagerbutton {
     cursor: pointer;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(163, 65, 208, 0.625);
 }
