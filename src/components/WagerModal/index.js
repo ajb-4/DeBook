@@ -1,5 +1,5 @@
 import './WagerModal.css';
-import { React, useState }from 'react';
+import { React, useState, useEffect }from 'react';
 import { ethers } from 'ethers';
 import DeBookABI from '../DeBookABI.json';
 
@@ -10,8 +10,23 @@ const WagerModal = ({ closeModal }) => {
     const [gameId, setGameId] = useState("");
     const [outcome, setOutcome] = useState("");
     const [margin, setMargin] = useState("");
+    const [wagers, setWagers] = useState([]);
+    const [filteredWagers, setFilteredWagers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    function hexToSignedInt(hex) {
+        
+        const bigNumber = ethers.BigNumber.from(hex);
+
+        const signedInt = bigNumber.toTwos(256).toNumber();
+    
+        const sign = signedInt >= 0 ? '+' : '-';
+        const absoluteValue = Math.abs(signedInt);
+    
+        return `${sign}${absoluteValue}`;
+    }
+    
 
     const createWager = async () => {
         try {
@@ -61,31 +76,70 @@ const WagerModal = ({ closeModal }) => {
             setError(error.message);
         }
     };
+
+    useEffect(() => {
+        async function fetchWagers() {
+            try {
+                setLoading(true);
+                const provider = new ethers.providers.Web3Provider(window.ethereum);
+                const contractAddress = '0x2487F8aecA38BEA2B66a3d80f3943BbcAc0A5FF7';
+                const contract = new ethers.Contract(contractAddress, DeBookABI, provider);
+                const wagersCount = await contract.getWagerCounter();
+    
+                const promises = [];
+                for (let i = 1; i <= wagersCount; i++) {
+                    promises.push(contract.wagers(i));
+                }
+                const fetchedWagers = await Promise.all(promises);
+                setWagers(fetchedWagers.map((wager, index) => ({
+                    ...wager,
+                    wagerId: index + 1
+                })));
+                setLoading(false);
+            } catch (error) {
+                setLoading(false);
+                setError(error.message);
+            }
+        }
+        fetchWagers();
+    }, []);
+
+    useEffect(() => {
+        setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 3));
+    }, [wagers]);
+
 return (
     <div id="wagermodal-container">
         <div id='wagermodal-createwagercontainer'>
             <div id='wagermodal-marketcontainer'>
                 <div id='wagermodal-marketheader'>
-                    <div>Price</div>
-                    <div>Amount</div>
+                    <div>Team</div>
+                    <div>Spread</div>
+                    <div>Size</div>
                 </div>
                 <div id='wagermodal-orderbook'>
-                    <div>Offer 1</div>
-                    <div>Offer 2</div>
-                    <div>Offer 3</div>
-                    <div>Offer 4</div>
-                    <div>Offer 5</div>
+                    {filteredWagers.map((wager, index) => (
+                            <div key={index} id='wagermodal-orderitem'>
+                                <div>{wager.outcome}</div>
+                                <div>{hexToSignedInt(wager.margin)}</div>
+                                <div>{ethers.utils.formatEther(wager.amount)} ETH</div>
+                            </div>
+                    ))}
+                </div>
+            </div>
+            <div id='wagermodal-rightside'>
+                <div onClick={closeModal} id='wagermodal-closebutton'>
+                    &times;
+                </div>
+                <div id='wagermodal-createwagerform'>
+                    <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" />
+                    <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" />
+                    <input type="text" value={outcome} onChange={(e) => setOutcome(e.target.value)} placeholder="Enter outcome" />
+                    <input type="number" value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin" />
+                    <button onClick={createWager} disabled={loading} id='wagermodal-createwagerbutton'>Create Wager</button>
+                    {error && <div>{error}</div>}
                 </div>
             </div>           
-            <div id='wagermodal-createwagerform'>
-                <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" />
-                <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" />
-                <input type="text" value={outcome} onChange={(e) => setOutcome(e.target.value)} placeholder="Enter outcome" />
-                <input type="number" value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin" />
-                <button onClick={createWager} disabled={loading}>Create Wager</button>
-                {error && <div>{error}</div>}
-                <span className="close" onClick={closeModal}>&times;</span>
-            </div>
         </div>
     </div>
   );

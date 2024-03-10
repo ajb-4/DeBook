@@ -62,7 +62,6 @@ const WagerIndex = () => {
                 setError(error.message);
             }
         }
-    
         fetchWagers();
     }, []);
 
@@ -92,7 +91,6 @@ const WagerIndex = () => {
                     <button onClick={openModal} id='wagerindex-createwager'>Create Wager</button>
                 </div>
                 <div id='wagerindex-container'>
-                    
                     {showModal && (
                         <WagerModal
                         closeModal={closeModal}
@@ -100,11 +98,13 @@ const WagerIndex = () => {
                     )}
                     {wagers.map((wager, index) => (
                         <div id='wagerindexitem' key={index}>
+                            <div>GameId: {wager.gameId._hex.toString()}</div>
+                            <div>Margin: {wager.margin._hex.toString()}</div>
                             <div>Outcome: {wager.outcome}</div>
-                            <div>Is Accepted: {wager.isAccepted ? 'Yes' : 'No'}</div>
                             <div>Wager Type: {wagerTypeName(wager.wagerType)}</div>
                             <div>Amount: {ethers.utils.formatEther(wager.amount)} ETH</div>
                             <div>Creator: {shortenAddress(wager.creator)}</div>
+                            <div>Is Accepted: {wager.isAccepted ? 'Yes' : 'No'}</div>
                             {wager.isAccepted ? (
                                 <div>Accepted by: {shortenAddress(wager.acceptor)}</div>
                             ) : (
