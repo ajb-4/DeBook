@@ -36,24 +36,39 @@
 }
 
 #wagermodal-orderbook {
-    height: 300px;
-    margin-top: 30px;
+    /* height: 300px; */
+    margin-top: 20px;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: space-around;
 }
 
-#wagermodal-orderitem {
+#wagermodal-orderitemteamone {
+    width: 250px;
     display: flex;
     justify-content: space-around;
     background-color: rgba(11, 107, 11, 0.679);
     border-radius: 5px;
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
 }
 
-#wagermodal-orderitem:hover {
+#wagermodal-orderitemteamone:hover {
     background-color: rgba(11, 179, 67, 0.752);
+}
+
+#wagermodal-orderitemteamtwo {
+    width: 250px;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(96, 9, 21, 0.679);
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#wagermodal-orderitemteamtwo:hover {
+    background-color: rgba(192, 37, 57, 0.727);
 }
 
 #wagermodal-rightside {
@@ -73,18 +88,25 @@
     flex-direction: column;
     justify-content: space-around;
     padding: 40px;
+    padding-top: 0px;
 }
 
 #wagermodal-createwagerform input {
-    height: 35px;
+    height: 45px;
     padding-left: 15px;
     border-radius: 7px;
     border: none;
     background-color: rgba(46, 46, 46, 0.832);
+    color: white;
+}
+
+#wagermodal-createwagerform input:focus {
+    outline: none;
+    border: 0.5px solid rgba(30, 193, 87, 0.671);
 }
 
 #wagermodal-createwagerform input:hover {
-    border: 0.7px solid rgba(30, 193, 87, 0.671);
+    background-color: rgba(65, 65, 65, 0.804);
 }
 
 #wagermodal-createwagerbutton {

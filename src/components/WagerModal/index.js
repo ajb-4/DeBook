@@ -11,6 +11,8 @@ const WagerModal = ({ closeModal }) => {
     const [outcome, setOutcome] = useState("");
     const [margin, setMargin] = useState("");
     const [wagers, setWagers] = useState([]);
+    const [celticsWagers, setCelticsWagers] = useState([]);
+    const [patriotsWagers, setPatriotsWagers] = useState([]);
     const [filteredWagers, setFilteredWagers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -106,25 +108,50 @@ const WagerModal = ({ closeModal }) => {
 
     useEffect(() => {
         setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 3));
+        const celticsWagers = wagers.filter(wager => wager.outcome === "Celtics");
+        const patriotsWagers = wagers.filter(wager => wager.outcome === "Patriots");
+
+        // Set the filtered wagers into separate states
+        setCelticsWagers(celticsWagers);
+        setPatriotsWagers(patriotsWagers);
     }, [wagers]);
+
 
 return (
     <div id="wagermodal-container">
         <div id='wagermodal-createwagercontainer'>
             <div id='wagermodal-marketcontainer'>
-                <div id='wagermodal-marketheader'>
-                    <div>Team</div>
-                    <div>Spread</div>
-                    <div>Size</div>
-                </div>
                 <div id='wagermodal-orderbook'>
-                    {filteredWagers.map((wager, index) => (
-                            <div key={index} id='wagermodal-orderitem'>
-                                <div>{wager.outcome}</div>
-                                <div>{hexToSignedInt(wager.margin)}</div>
-                                <div>{ethers.utils.formatEther(wager.amount)} ETH</div>
-                            </div>
-                    ))}
+                    <div id='wagermodal-teamonebids'>
+                        <div>Celtics</div>
+                        <div id='wagermodal-marketheader'>
+                            <div>Team</div>
+                            <div>Spread</div>
+                            <div>Size</div>
+                        </div>
+                            {celticsWagers.map((wager, index) => (
+                                <div key={index} id='wagermodal-orderitemteamone'>
+                                    <div>{wager.outcome}</div>
+                                    <div>{hexToSignedInt(wager.margin)}</div>
+                                    <div>{ethers.utils.formatEther(wager.amount)} ETH</div>
+                                </div>
+                            ))}
+                    </div>
+                    <div id='wagermodal-teamtwobids'>
+                        <div>Patriots</div>
+                        <div id='wagermodal-marketheader'>
+                            <div>Team</div>
+                            <div>Spread</div>
+                            <div>Size</div>
+                        </div>
+                            {patriotsWagers.map((wager, index) => (
+                                <div key={index} id='wagermodal-orderitemteamtwo'>
+                                    <div>{wager.outcome}</div>
+                                    <div>{hexToSignedInt(wager.margin)}</div>
+                                    <div>{ethers.utils.formatEther(wager.amount)} ETH</div>
+                                </div>
+                            ))}
+                        </div>
                 </div>
             </div>
             <div id='wagermodal-rightside'>
