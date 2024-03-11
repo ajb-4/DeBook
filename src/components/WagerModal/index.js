@@ -123,32 +123,32 @@ return (
             <div id='wagermodal-marketcontainer'>
                 <div id='wagermodal-orderbook'>
                     <div id='wagermodal-teamonebids'>
-                        <div>Celtics</div>
+                        <div id='wagermodal-teamheader'>Celtics</div>
                         <div id='wagermodal-marketheader'>
                             <div>Team</div>
                             <div>Spread</div>
-                            <div>Size</div>
+                            <div>ETH</div>
                         </div>
                             {celticsWagers.map((wager, index) => (
                                 <div key={index} id='wagermodal-orderitemteamone'>
                                     <div>{wager.outcome}</div>
                                     <div>{hexToSignedInt(wager.margin)}</div>
-                                    <div>{ethers.utils.formatEther(wager.amount)} ETH</div>
+                                    <div>{ethers.utils.formatEther(wager.amount)}</div>
                                 </div>
                             ))}
                     </div>
                     <div id='wagermodal-teamtwobids'>
-                        <div>Patriots</div>
+                        <div id='wagermodal-teamheader'>Patriots</div>
                         <div id='wagermodal-marketheader'>
                             <div>Team</div>
                             <div>Spread</div>
-                            <div>Size</div>
+                            <div>ETH</div>
                         </div>
                             {patriotsWagers.map((wager, index) => (
                                 <div key={index} id='wagermodal-orderitemteamtwo'>
                                     <div>{wager.outcome}</div>
                                     <div>{hexToSignedInt(wager.margin)}</div>
-                                    <div>{ethers.utils.formatEther(wager.amount)} ETH</div>
+                                    <div>{ethers.utils.formatEther(wager.amount)}</div>
                                 </div>
                             ))}
                         </div>

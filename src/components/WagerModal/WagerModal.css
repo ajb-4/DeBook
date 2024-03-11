@@ -26,6 +26,7 @@
     width: 450px;
     margin: 20px;
     padding: 50px;
+    padding-top: 20px;
     background-color: black;
     border-radius: 20px;
 }
@@ -33,23 +34,38 @@
 #wagermodal-marketheader {
     display: flex;
     justify-content: space-around;
+    margin: 10px;
+    font-size: 12px;
 }
 
 #wagermodal-orderbook {
-    /* height: 300px; */
-    margin-top: 20px;
     display: flex;
     /* flex-direction: column; */
     justify-content: space-around;
 }
 
+#wagermodal-teamonebids {
+    margin-right: 10px;
+}
+
+#wagermodal-teamtwobids {
+    margin-left: 10px;
+}
+
+#wagermodal-teamheader {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
 #wagermodal-orderitemteamone {
-    width: 250px;
+    width: 230px;
     display: flex;
     justify-content: space-around;
     background-color: rgba(11, 107, 11, 0.679);
     border-radius: 5px;
     padding: 5px;
+    margin-bottom: 7px;
     cursor: pointer;
 }
 
@@ -58,7 +74,7 @@
 }
 
 #wagermodal-orderitemteamtwo {
-    width: 250px;
+    width: 230px;
     display: flex;
     justify-content: space-around;
     background-color: rgba(96, 9, 21, 0.679);
@@ -89,6 +105,7 @@
     justify-content: space-around;
     padding: 40px;
     padding-top: 0px;
+    padding-left: 0px;
 }
 
 #wagermodal-createwagerform input {
