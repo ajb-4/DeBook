@@ -108,13 +108,13 @@ const WagerModal = ({ closeModal }) => {
 
     useEffect(() => {
         setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 3));
-        const celticsWagers = wagers.filter(wager => wager.outcome === "Celtics");
-        const patriotsWagers = wagers.filter(wager => wager.outcome === "Patriots");
+        const celticsWagers = filteredWagers.filter(wager => wager.outcome === "Celtics");
+        const patriotsWagers = filteredWagers.filter(wager => wager.outcome === "Patriots");
 
         // Set the filtered wagers into separate states
         setCelticsWagers(celticsWagers);
         setPatriotsWagers(patriotsWagers);
-    }, [wagers]);
+    }, [filteredWagers, wagers]);
 
 
 return (

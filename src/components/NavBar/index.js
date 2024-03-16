@@ -57,7 +57,8 @@ const NavBar = () => {
                         <Link to='/profile'><i class="fa-thin fa-user"></i></Link>
                     </div>
                     <div id='navbar-userbalance'>
-                        <i class="fa-thin fa-dollar-sign"></i>
+                        {/* <i class="fa-thin fa-dollar-sign"></i> */}
+                        <i class="fa-thin fa-money-bill-trend-up"></i>
                         <div id='navbar-userbalancevalue'>{connected ? `${Math.round(balance * 10000)/ 10000} ETH` : 'Add Eth'}</div>
                     </div>
                 </div>
