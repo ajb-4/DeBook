@@ -16,7 +16,7 @@ const NavBar = () => {
             } else {
                 await window.ethereum.request({ method: 'eth_accounts', params: [] });
             }
-            const chainId = 5;
+            const chainId = 11155111;
             const provider = new Web3Provider(window.ethereum, chainId);
             const signer = provider.getSigner();
             const userBalance = await signer.getBalance();
@@ -35,7 +35,7 @@ const NavBar = () => {
 
                     setConnected(true);
 
-                    const chainId = 5;
+                    const chainId = 11155111;
                     const provider = new Web3Provider(window.ethereum, chainId);
                     const signer = provider.getSigner();
                     const userBalance = await signer.getBalance();

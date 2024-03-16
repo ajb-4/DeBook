@@ -64,7 +64,7 @@ const WagerModal = ({ closeModal }) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const contractAddress = '0x2487F8aecA38BEA2B66a3d80f3943BbcAc0A5FF7';
+            const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
             const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
             const amountInWei = ethers.utils.parseEther(amount);
             
@@ -84,7 +84,7 @@ const WagerModal = ({ closeModal }) => {
             try {
                 setLoading(true);
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const contractAddress = '0x2487F8aecA38BEA2B66a3d80f3943BbcAc0A5FF7';
+                const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
                 const contract = new ethers.Contract(contractAddress, DeBookABI, provider);
                 const wagersCount = await contract.getWagerCounter();
     
@@ -110,7 +110,7 @@ const WagerModal = ({ closeModal }) => {
         setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 3));
         const celticsWagers = filteredWagers.filter(wager => wager.outcome === "Celtics");
         const patriotsWagers = filteredWagers.filter(wager => wager.outcome === "Patriots");
-
+        debugger
         // Set the filtered wagers into separate states
         setCelticsWagers(celticsWagers);
         setPatriotsWagers(patriotsWagers);
