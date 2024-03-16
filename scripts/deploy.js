@@ -3,13 +3,13 @@ const fs = require('fs');
 const { abi } = require("../artifacts/contracts/DeBook.sol/DeBook.json");
 
 async function main() {
-  const provider = new ethers.providers.JsonRpcProvider("https://goerli.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829"); // Use your local node URL or Infura URL
-  const privateKey = "12170a444ceec99dcea5abe34facacc8bb15f013cd13f86aa8699c530dbdaa8a"; // Replace with your MetaMask private key
+  const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829"); // Update with Sepolia RPC URL
+  const privateKey = "0f9250ece3c3eab0c3c9ee22247b84af0ffcd7314b96929e7d15373704a1ab13"; // Replace with your private key on the Sepolia network
 
   const wallet = new ethers.Wallet(privateKey, provider);
 
   const DeBook = await ethers.getContractFactory("DeBook");
-  
+
   const deBook = await DeBook.connect(wallet).deploy();
   await deBook.deployed();
 
