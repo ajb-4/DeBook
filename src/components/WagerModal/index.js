@@ -18,16 +18,11 @@ const WagerModal = ({ closeModal }) => {
     const [error, setError] = useState("");
 
     function hexToSignedInt(hex) {
-        
         const bigNumber = ethers.BigNumber.from(hex);
-
-        const signedInt = bigNumber.toTwos(256).toNumber();
-    
-        const sign = signedInt >= 0 ? '+' : '-';
-        const absoluteValue = Math.abs(signedInt);
-    
+        const sign = bigNumber.isNegative() ? '-' : '+';
+        const absoluteValue = bigNumber.abs().toString();
         return `${sign}${absoluteValue}`;
-    }
+    }    
     
 
     const createWager = async () => {
@@ -107,14 +102,16 @@ const WagerModal = ({ closeModal }) => {
     }, []);
 
     useEffect(() => {
-        setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 3));
+        setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 1));
+    }, [wagers]);
+    
+    useEffect(() => {
         const celticsWagers = filteredWagers.filter(wager => wager.outcome === "Celtics");
         const patriotsWagers = filteredWagers.filter(wager => wager.outcome === "Patriots");
-        debugger
-        // Set the filtered wagers into separate states
+        
         setCelticsWagers(celticsWagers);
         setPatriotsWagers(patriotsWagers);
-    }, [filteredWagers, wagers]);
+    }, [filteredWagers]);
 
 
 return (
