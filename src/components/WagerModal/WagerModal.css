@@ -23,7 +23,6 @@
 }
 
 #wagermodal-marketcontainer {
-    width: 450px;
     margin: 20px;
     padding: 50px;
     padding-top: 20px;
@@ -46,11 +45,11 @@
 }
 
 #wagermodal-teamonebids {
-    margin-right: 10px;
+    /* margin-right: 10px; */
 }
 
 #wagermodal-teamtwobids {
-    margin-left: 10px;
+    /* margin-left: 10px; */
 }
 
 #wagermodal-teamheader {
@@ -81,6 +80,7 @@
     background-color: rgba(96, 9, 21, 0.679);
     border-radius: 5px;
     padding: 5px;
+    margin-bottom: 7px;
     cursor: pointer;
 }
 
