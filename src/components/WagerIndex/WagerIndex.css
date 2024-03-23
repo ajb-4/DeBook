@@ -14,13 +14,14 @@
     margin-left: 40px;
     font-family: 'Courier New', monospace;
     color: white;
-    background-color: rgba(66, 92, 244, 0.244);
+    background-color: rgba(99, 149, 109, 0.747);
     border: none;
     border-radius: 5px;
+    padding: 10px;
 }
 
 #wagerindex-createwager:hover {
-    background-color: rgba(29, 223, 38, 0.796);
+    background-color: rgb(62, 119, 81);
 }
 
 #wagerindex-container {
@@ -33,9 +34,9 @@
     width: calc(33.33% - 20px);
     margin: 10px;
     box-sizing: border-box;
-    background-color: rgba(66, 92, 244, 0.244);
+    background-color: rgba(171, 181, 236, 0.244);
     border-radius: 20px;
-    padding: 10px;
+    padding: 20px;
     color: white;
 }
 

@@ -18,6 +18,18 @@
 #wagerindexitem-participants {
     display: flex;
     justify-content: space-between;
-    /* font-size: 14px; */
-    /* border: solid 1px orange; */
+}
+
+#wagerindexitem-acceptbutton {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgba(99, 149, 109, 0.747);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+#wagerindexitem-acceptbutton:hover {
+    background-color: rgb(62, 119, 81);
 }

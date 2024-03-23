@@ -66,16 +66,21 @@ const WagerIndexItem = ({wager}) => {
                 <div>Win: {ethers.utils.formatEther(wager.amount)} ETH</div>
             </div>
             <div id='wagerindexitem-participants'>
-                <div>Maker:{shortenAddress(wager.creator)}</div>
+                <div>
+                    <div>Maker:</div>
+                    <div>{shortenAddress(wager.creator)}</div>
+                </div>
                 {/* <div>Is Accepted: {wager.isAccepted ? 'Yes' : 'No'}</div> */}
                 {wager.isAccepted ? (
-                    <div>Taker:{shortenAddress(wager.acceptor)}</div>
+                <div>
+                    <div>Taker:</div>
+                    <div>{shortenAddress(wager.acceptor)}</div>
+                </div>
                 ) : (
-                    <div>
-                        <button onClick={() => acceptWager(wager.wagerId)} disabled={loading}>Accept Wager</button>
-                    </div>
+                    <div onClick={() => acceptWager(wager.wagerId)} disabled={loading}  id='wagerindexitem-acceptbutton'>Accept Wager</div>
                 )}
             </div>
+           
         </div>
         </>
     )
