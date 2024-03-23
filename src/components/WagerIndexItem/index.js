@@ -44,25 +44,32 @@ const WagerIndexItem = ({wager}) => {
         return address.slice(0, 6) + '...' + address.slice(-4);
     }
 
+    function hexToSignedInt(hex) {
+        const bigNumber = ethers.BigNumber.from(hex);
+        const sign = bigNumber.isNegative() ? '-' : '+';
+        const absoluteValue = bigNumber.abs().toString();
+        return `${sign}${absoluteValue}`;
+    } 
+
     return (
         <>
         <div id='wagerindexitem-container'>
             <div id='wagerindexitem-game'>
-                <div>GameId: {wager.gameId._hex.toString()}</div>
+                <div>GameId: {hexToSignedInt(wager.gameId)}</div>
             </div>
             <div id='wagerindexitem-outcome'>
-                <div>Margin: {wager.margin._hex.toString()}</div>
-                <div>Outcome: {wager.outcome}</div>
-                <div>Wager Type: {wagerTypeName(wager.wagerType)}</div>
+                <div>{wager.outcome}</div>
+                <div>{wagerTypeName(wager.wagerType)}:  {hexToSignedInt(wager.margin)}</div>
             </div>
             <div id='wagerindexitem-money'>
-                <div>Amount: {ethers.utils.formatEther(wager.amount)} ETH</div>
+                <div>Risk: {ethers.utils.formatEther(wager.amount)} ETH</div>
+                <div>Win: {ethers.utils.formatEther(wager.amount)} ETH</div>
             </div>
             <div id='wagerindexitem-participants'>
-                <div>Creator: {shortenAddress(wager.creator)}</div>
-                <div>Is Accepted: {wager.isAccepted ? 'Yes' : 'No'}</div>
+                <div>Maker:{shortenAddress(wager.creator)}</div>
+                {/* <div>Is Accepted: {wager.isAccepted ? 'Yes' : 'No'}</div> */}
                 {wager.isAccepted ? (
-                    <div>Accepted by: {shortenAddress(wager.acceptor)}</div>
+                    <div>Taker:{shortenAddress(wager.acceptor)}</div>
                 ) : (
                     <div>
                         <button onClick={() => acceptWager(wager.wagerId)} disabled={loading}>Accept Wager</button>
