@@ -8,8 +8,16 @@ const UserProfile = () => {
     return (
         <>
             <div id='userprofile-outtercontainer'>
-                <div id='userprofile-statbox1'>Stat Box 1</div>
-                <div id='userprofile-statbox2'>Stat Box 2</div>
+                <div id='userprofile-activewagerindex'>
+                    <div>Wager Index</div>
+                    <div>Active Wager 1</div>
+                    <div>Active Wager 2</div>   
+                </div>
+                <div id='userprofile-pastwagerindex'>
+                    <div>Past Wager 1</div>  
+                    <div>Past Wager 2</div>
+                    <div>Past Wager 3</div>     
+                </div>
             </div>
         </>
     )
