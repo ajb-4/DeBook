@@ -3,6 +3,23 @@
     height: 100vh;
 }
 
+#userprofile-activewagerindex {
+    margin-left: 100px;
+    margin-right: 100px;
+    width: 1300px;
+    padding: 30px;
+    background-color: rgba(4, 38, 98, 0.392);
+    border-radius: 20px;
+    overflow: auto;
+}
+
 #userprofile-pastwagerindex {
-    background-color: darkgrey;
+    margin-top: 100px;
+    margin-left: 100px;
+    margin-right: 100px;
+    width: 1300px;
+    padding: 30px;
+    background-color: rgba(4, 38, 98, 0.392);
+    border-radius: 20px;
+    overflow: auto;
 }
