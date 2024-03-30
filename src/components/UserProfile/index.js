@@ -16,7 +16,8 @@ const UserProfile = () => {
                 <div id='userprofile-pastwagerindex'>
                     <div>Past Wager 1</div>  
                     <div>Past Wager 2</div>
-                    <div>Past Wager 3</div>     
+                    <div>Past Wager 3</div> 
+                    <div>Past Wager 4</div>    
                 </div>
             </div>
         </>
