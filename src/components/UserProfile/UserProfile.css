@@ -1,6 +1,8 @@
 #userprofile-outtercontainer {
     background: linear-gradient(to right, #29323c, #485563);
     height: 100vh;
+    font-family: 'Courier New', monospace;
+    color: white;
 }
 
 #userprofile-activewagerindex {
