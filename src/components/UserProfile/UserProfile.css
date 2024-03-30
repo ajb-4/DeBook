@@ -2,3 +2,7 @@
     background: linear-gradient(to right, #29323c, #485563);
     height: 100vh;
 }
+
+#userprofile-pastwagerindex {
+    background-color: darkgrey;
+}
