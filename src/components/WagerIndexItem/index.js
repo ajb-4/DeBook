@@ -7,8 +7,10 @@ const WagerIndexItem = ({wager}) => {
 
     const [loading, setLoading] = useState(false);
     // const [error, setError] = useState("");
-    //test commit cause npm package is deprecated
 
+
+
+    //still unable to work through the 'extent react app'
     const acceptWager = async (wagerId) => {
         try {
             setLoading(true);
