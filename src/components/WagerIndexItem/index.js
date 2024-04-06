@@ -7,6 +7,7 @@ const WagerIndexItem = ({wager}) => {
 
     const [loading, setLoading] = useState(false);
     // const [error, setError] = useState("");
+    //test commit cause npm package is deprecated
 
     const acceptWager = async (wagerId) => {
         try {
