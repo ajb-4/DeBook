@@ -47,7 +47,7 @@ const WagerIndex = () => {
             }
         }
         fetchWagers();
-    }, []);
+    }, [wagers]);
 
     return (
         <>
@@ -62,7 +62,6 @@ const WagerIndex = () => {
                         closeModal={closeModal}
                         />
                     )}
-                    {loading ? 'Loading or having an ESLINT error' : ''}
                     {wagers.map((wager, index) => (
                         <div id='wagerindexitem' key={index}>
                             <WagerIndexItem wager={wager}/>
