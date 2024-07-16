@@ -39,11 +39,14 @@ const WagerModal = ({ closeModal }) => {
                 setError("Please enter a valid positive amount");
                 return;
             }
+
+            // can comment back in when we can identify gameID
     
-            if (gameId === "") {
-                setError("Please enter a valid game ID");
-                return;
-            }
+            // if (gameId === "") {
+            //     setError("Please enter a valid game ID");
+            //     return;
+            // }
+
     
             if (outcome === "") {
                 setError("Please enter a valid outcome");
@@ -64,7 +67,7 @@ const WagerModal = ({ closeModal }) => {
             const amountInWei = ethers.utils.parseEther(amount);
             
             // Call the createWager function on the smart contract
-            const transaction = await contract.createWager(gameId, 0, margin, outcome, { value: amountInWei });
+            const transaction = await contract.createWager(1, 0, margin, outcome, { value: amountInWei });
             await transaction.wait();    
             setLoading(false);
             // Add logic to handle successful wager creation
@@ -156,9 +159,16 @@ return (
                     &times;
                 </div>
                 <div id='wagermodal-createwagerform'>
-                    <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount" />
-                    <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" />
-                    <input type="text" value={outcome} onChange={(e) => setOutcome(e.target.value)} placeholder="Enter outcome" />
+                    <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount (ETH)" />
+                    {/* <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" /> */}
+                    <div id='wagermodal-outcometitle'>Outcome</div>
+                    <div id="wagermodal-selectoutcome">
+                            <button onClick={() => 
+                            {console.log("Celtics button clicked");
+                            setOutcome("Celtics")
+                            console.log(outcome)}} id='wagermodal-outcomebutton' className={outcome === "Celtics" ? 'selectedoutcome' : ''}>Celtics</button>
+                            <button onClick={() => setOutcome("Patriots")} id='wagermodal-outcomebutton' className={outcome === "Patriots" ? 'selectedoutcome' : ''}>Patriots</button>
+                    </div>
                     <input type="number" value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin" />
                     <button onClick={createWager} disabled={loading} id='wagermodal-createwagerbutton'>Create Wager</button>
                     {error && <div>{error}</div>}

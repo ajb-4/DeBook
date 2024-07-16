@@ -5,6 +5,8 @@ import { ethers } from 'ethers';
 const UserProfile = () => {
     const [wagers, setWagers] = useState([]);
     const [filteredWagers, setFilteredWagers] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
 
     useEffect(() => {

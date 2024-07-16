@@ -133,6 +133,31 @@
     background-color: rgba(65, 65, 65, 0.804);
 }
 
+#wagermodal-selectoutcome {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#wagermodal-outcomebutton {
+    border-radius: 10px;
+    border: none;
+    height: 40px;
+    width: 100px;
+    background-color: rgba(46, 46, 46, 0.832);
+    color: white;
+}
+
+#wagermodal-outcomebutton:hover {
+    cursor: pointer;
+    background-color: rgba(65, 65, 65, 0.804);
+}
+
+.selectedoutcome {
+    background-color: rgb(40, 51, 210);
+    color: black;
+}
+
+
 #wagermodal-createwagerbutton {
     cursor: pointer;
     height: 40px;
