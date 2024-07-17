@@ -139,10 +139,10 @@
 }
 
 .wagermodal-outcomebutton {
-    border-radius: 10px;
+    border-radius: 7px;
     border: none;
     height: 40px;
-    width: 100px;
+    width: 110px;
     background-color: rgba(46, 46, 46, 0.832);
     color: white;
 }
@@ -162,10 +162,10 @@
     height: 40px;
     border-radius: 10px;
     border: none;
-    background-color: rgba(132, 22, 183, 0.625);
+    background-color: rgba(100, 100, 100, 0.783);
     color: white;
 }
 
 #wagermodal-createwagerbutton:hover {
-    background-color: rgba(147, 68, 175, 0.858);
+    background-color: rgba(11, 179, 67, 0.752);
 }

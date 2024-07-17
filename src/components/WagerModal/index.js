@@ -16,16 +16,24 @@ const WagerModal = ({ closeModal }) => {
     const [filteredWagers, setFilteredWagers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
-    function hexToSignedInt(hex) {
-        const bigNumber = ethers.BigNumber.from(hex);
-        const sign = bigNumber.isNegative() ? '-' : '+';
-        const absoluteValue = bigNumber.abs().toString();
-        return `${sign}${absoluteValue}`;
-    }
     
     const formattedNum = (num) => {
         return num > 0 ? `+${num}` : num;
+    };
+    
+    const formatMargin = (marginHex) => {
+        const bigNumber = ethers.BigNumber.from(marginHex);
+        const sign = bigNumber.isNegative() ? '-' : '+';
+        const absoluteValue = bigNumber.abs().toNumber();
+        const formattedMargin = absoluteValue / 10;
+
+        return formattedMargin % 1 === 0 ? `${sign}${Math.abs(formattedMargin)}` : `${sign}${formattedMargin.toFixed(1)}`;
+    };
+
+    const clickorderitem = (wager) => {
+        setAmount(ethers.utils.formatEther(wager.amount));
+        setOutcome(wager.outcome);
+        setMargin(ethers.BigNumber.from(wager.margin).toNumber() / 10);
     };
 
 
@@ -56,8 +64,15 @@ const WagerModal = ({ closeModal }) => {
                 setError("Please enter a valid outcome");
                 return;
             }
-    
+
             if (margin === "") {
+                setError("Please enter a valid margin");
+                return;
+            }
+    
+            const marginValue = parseFloat(margin);
+
+            if (isNaN(marginValue)) {
                 setError("Please enter a valid margin");
                 return;
             }
@@ -69,9 +84,11 @@ const WagerModal = ({ closeModal }) => {
             const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
             const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
             const amountInWei = ethers.utils.parseEther(amount);
+            const marginInt = Math.round(marginValue * 10);
             
             // Call the createWager function on the smart contract
-            const transaction = await contract.createWager(1, 0, margin, outcome, { value: amountInWei });
+
+            const transaction = await contract.createWager(1, 0, marginInt, outcome, { value: amountInWei });
             await transaction.wait();    
             setLoading(false);
             // Add logic to handle successful wager creation
@@ -117,8 +134,22 @@ const WagerModal = ({ closeModal }) => {
     }, [wagers]);
     
     useEffect(() => {
-        const celticsWagers = filteredWagers.filter(wager => wager.outcome === "Celtics");
-        const patriotsWagers = filteredWagers.filter(wager => wager.outcome === "Patriots");
+        const celticsWagers = filteredWagers.filter(wager => wager.outcome === "Celtics").filter(wager=>!wager.isAccepted);
+        const patriotsWagers = filteredWagers.filter(wager => wager.outcome === "Patriots").filter(wager=>!wager.isAccepted);
+
+        // Chat GPT's suggestion, don's understand the marginA.sub(marginB) function call 
+
+        celticsWagers.sort((a, b) => {
+            const marginA = ethers.BigNumber.from(a.margin);
+            const marginB = ethers.BigNumber.from(b.margin);
+            return marginA.sub(marginB).toNumber();
+        });
+
+        patriotsWagers.sort((a, b) => {
+            const marginA = ethers.BigNumber.from(a.margin);
+            const marginB = ethers.BigNumber.from(b.margin);
+            return marginA.sub(marginB).toNumber();
+        });
         
         setCelticsWagers(celticsWagers);
         setPatriotsWagers(patriotsWagers);
@@ -138,9 +169,9 @@ return (
                             <div>ETH</div>
                         </div>
                             {celticsWagers.map((wager, index) => (
-                                <div key={index} id='wagermodal-orderitemteamone'>
+                                <div key={index} id='wagermodal-orderitemteamone' onClick={() => clickorderitem(wager)}>
                                     <div>{wager.outcome}</div>
-                                    <div>{hexToSignedInt(wager.margin)}</div>
+                                    <div>{formatMargin(wager.margin)}</div>
                                     <div>{ethers.utils.formatEther(wager.amount)}</div>
                                 </div>
                             ))}
@@ -153,9 +184,9 @@ return (
                             <div>ETH</div>
                         </div>
                             {patriotsWagers.map((wager, index) => (
-                                <div key={index} id='wagermodal-orderitemteamtwo'>
+                                <div key={index} id='wagermodal-orderitemteamtwo' onClick={() => clickorderitem(wager)}>
                                     <div>{wager.outcome}</div>
-                                    <div>{hexToSignedInt(wager.margin)}</div>
+                                    <div>{formatMargin(wager.margin)}</div>
                                     <div>{ethers.utils.formatEther(wager.amount)}</div>
                                 </div>
                             ))}
@@ -179,7 +210,7 @@ return (
                             <button onClick={() => setOutcome("Patriots")} className='wagermodal-outcomebutton' id={selectedoutcome("Patriots") ? 'selectedoutcome' : ''}>Patriots</button>
                         </div>
                     </div>
-                    <input type="number" value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin" />
+                    <input type="number" step='0.5' value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin (points)" />
                     <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount (ETH)" />
                     <button onClick={createWager} disabled={loading} id='wagermodal-createwagerbutton'>Create Wager</button>
                     {error && <div>{error}</div>}

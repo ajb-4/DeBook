@@ -49,10 +49,18 @@ const WagerIndexItem = ({wager}) => {
 
     function hexToSignedInt(hex) {
         const bigNumber = ethers.BigNumber.from(hex);
-        const sign = bigNumber.isNegative() ? '-' : '+';
         const absoluteValue = bigNumber.abs().toString();
-        return `${sign}${absoluteValue}`;
-    } 
+        return `${absoluteValue}`;
+    }
+    
+    const formatMargin = (marginHex) => {
+        const bigNumber = ethers.BigNumber.from(marginHex);
+        const sign = bigNumber.isNegative() ? '-' : '+';
+        const absoluteValue = bigNumber.abs().toNumber();
+        const formattedMargin = absoluteValue / 10;
+
+        return formattedMargin % 1 === 0 ? `${sign}${Math.abs(formattedMargin)}` : `${sign}${formattedMargin.toFixed(1)}`;
+    };
 
     return (
         <>
@@ -62,7 +70,7 @@ const WagerIndexItem = ({wager}) => {
             </div>
             <div id='wagerindexitem-outcome'>
                 <div>{wager.outcome}</div>
-                <div>{wagerTypeName(wager.wagerType)}:  {hexToSignedInt(wager.margin)}</div>
+                <div>{wagerTypeName(wager.wagerType)}:  {formatMargin(wager.margin)}</div>
             </div>
             <div id='wagerindexitem-money'>
                 <div>Risk: {ethers.utils.formatEther(wager.amount)} ETH</div>
