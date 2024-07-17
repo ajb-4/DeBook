@@ -138,7 +138,7 @@
     justify-content: space-evenly;
 }
 
-#wagermodal-outcomebutton {
+.wagermodal-outcomebutton {
     border-radius: 10px;
     border: none;
     height: 40px;
@@ -147,16 +147,15 @@
     color: white;
 }
 
-#wagermodal-outcomebutton:hover {
+.wagermodal-outcomebutton:hover {
     cursor: pointer;
     background-color: rgba(65, 65, 65, 0.804);
 }
 
-.selectedoutcome {
-    background-color: rgb(40, 51, 210);
+#selectedoutcome {
+    background-color: whitesmoke;
     color: black;
 }
-
 
 #wagermodal-createwagerbutton {
     cursor: pointer;

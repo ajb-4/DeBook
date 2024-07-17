@@ -8,7 +8,7 @@ const GameIndexItem = ({game}) => {
     const awaySpread = game.bookmakers[0].markets[1]?.outcomes[1].point;
 
     const formattedNum = (num) => {
-        return num >= 0 ? `+${num}` : num;
+        return num > 0 ? `+${num}` : num;
     };
 
     return (
