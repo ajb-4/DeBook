@@ -1,7 +1,15 @@
 require("@nomicfoundation/hardhat-toolbox");
 
 module.exports = {
-  solidity: "0.8.0",
+  solidity: "0.8.20",
+  compilers: [
+    {
+      version: "0.8.0",
+    },
+    {
+      version: "0.8.20",
+    },
+  ],
   networks: {
     sepolia: {
       url: "https://sepolia.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829",

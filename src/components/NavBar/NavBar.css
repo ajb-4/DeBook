@@ -27,10 +27,25 @@
     font-family: 'Courier New', monospace;
 }
 
+#navbar-mintbutton {
+    width: 150px;
+    margin-right: 30px;
+    cursor: pointer;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(100, 100, 100, 0.783);
+    color: white;
+}
+
+#navbar-mintbutton:hover {
+    background-color: rgba(11, 179, 67, 0.752);
+}
+
 #navbar-middle {
     font-size: 40px;
     position: relative;
-    left: -35px;
+    /* left: -35px; */
     font-family: 'Courier New', monospace;
 }
 

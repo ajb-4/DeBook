@@ -17,7 +17,7 @@ const WagerIndexItem = ({wager}) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
+            const contractAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
             const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
 
             await contract.acceptWager(wager.wagerId, { value: wager.amount });

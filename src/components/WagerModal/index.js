@@ -2,6 +2,7 @@ import './WagerModal.css';
 import { React, useState, useEffect }from 'react';
 import { ethers } from 'ethers';
 import DeBookABI from '../DeBookABI.json';
+import MockUSDCAbi from '../MockUSDCABI.json';
 
 
 const WagerModal = ({ closeModal }) => {
@@ -41,7 +42,6 @@ const WagerModal = ({ closeModal }) => {
 
     const createWager = async () => {
         try {
-
             if (amount === "") {
                 setError("Please enter a valid amount");
                 return;
@@ -53,27 +53,19 @@ const WagerModal = ({ closeModal }) => {
                 setError("Please enter a valid positive amount");
                 return;
             }
-
-            // can comment back in when we can identify gameID
-    
-            // if (gameId === "") {
-            //     setError("Please enter a valid game ID");
-            //     return;
-            // }
-
     
             if (outcome === "") {
                 setError("Please enter a valid outcome");
                 return;
             }
-
+    
             if (margin === "") {
                 setError("Please enter a valid margin");
                 return;
             }
     
             const marginValue = parseFloat(margin);
-
+    
             if (isNaN(marginValue)) {
                 setError("Please enter a valid margin");
                 return;
@@ -83,22 +75,27 @@ const WagerModal = ({ closeModal }) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
-            const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
-            const amountInWei = ethers.utils.parseEther(amount);
+            const deBookAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
+            const deBookContract = new ethers.Contract(deBookAddress, DeBookABI, signer);
+            const usdcAddress = '0x1974F3e0589835919ad8e250F340d40b861b4991';
+            const usdcContract = new ethers.Contract(usdcAddress, MockUSDCAbi, signer);
+            const usdcAmount = ethers.utils.parseUnits(amount, 6);
             const marginInt = Math.round(marginValue * 10);
-            
-            // Call the createWager function on the smart contract
-
-            const transaction = await contract.createWager(1, 0, marginInt, outcome, { value: amountInWei });
-            await transaction.wait();    
+    
+            // Wait for USDC spend approval
+            const approveTx = await usdcContract.approve(deBookAddress, usdcAmount);
+            await approveTx.wait();
+    
+            const transaction = await deBookContract.createWager(1, 0, marginInt, outcome, usdcAmount);
+            await transaction.wait();
+    
             setLoading(false);
-            // Add logic to handle successful wager creation
+
         } catch (error) {
             setLoading(false);
             setError(error.message);
         }
-    };
+    };    
 
     const acceptWager = async (wager) => {
         try {
@@ -106,17 +103,27 @@ const WagerModal = ({ closeModal }) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
-            const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
+            const deBookAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
+            const deBookContract = new ethers.Contract(deBookAddress, DeBookABI, signer);
+            const usdcAddress = '0x1974F3e0589835919ad8e250F340d40b861b4991';
+            const usdcContract = new ethers.Contract(usdcAddress, MockUSDCAbi, signer);
+            const usdcAmount = wager.amount;
+    
+            // Wait for USDC spend approval
+            const approveTx = await usdcContract.approve(deBookAddress, usdcAmount);
+            await approveTx.wait();
 
-            await contract.acceptWager(wager.wagerId, { value: wager.amount });
+            const transaction = await deBookContract.acceptWager(wager.wagerId, { value: 0 }); // Passing 0 value as no ETH is needed
+            await transaction.wait();
+    
             setLoading(false);
         } catch (error) {
-
             setLoading(false);
+            console.error(error);
             // setError(error.message);
         }
     };
+    
 
     const cancelWager = () => {
         setAmount("");
@@ -134,7 +141,7 @@ const WagerModal = ({ closeModal }) => {
             try {
                 setLoading(true);
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
+                const contractAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
                 const contract = new ethers.Contract(contractAddress, DeBookABI, provider);
                 const wagersCount = await contract.getWagerCounter();
     
