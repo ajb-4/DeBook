@@ -67,30 +67,30 @@
     width: 230px;
     display: flex;
     justify-content: space-around;
-    background-color: rgba(11, 107, 11, 0.679);
-    border-radius: 5px;
+    background-color: rgba(163, 163, 163, 0.166);
+    border-radius: 3px;
     padding: 5px;
     margin-bottom: 7px;
     cursor: pointer;
 }
 
 #wagermodal-orderitemteamone:hover {
-    background-color: rgba(11, 179, 67, 0.752);
+    background-color: rgba(11, 179, 67, 0.69);
 }
 
 #wagermodal-orderitemteamtwo {
     width: 230px;
     display: flex;
     justify-content: space-around;
-    background-color: rgba(96, 9, 21, 0.679);
-    border-radius: 5px;
+    background-color: rgba(163, 163, 163, 0.166);
+    border-radius: 3px;
     padding: 5px;
     margin-bottom: 7px;
     cursor: pointer;
 }
 
 #wagermodal-orderitemteamtwo:hover {
-    background-color: rgba(192, 37, 57, 0.727);
+    background-color: rgba(11, 179, 67, 0.69);
 }
 
 #wagermodal-rightside {
@@ -124,7 +124,7 @@
 
 #wagermodal-wagersummary {
     font-size: 14px;
-    height: 40px;
+    height: 20px;
     display: flex;
     justify-content: space-between;
 }

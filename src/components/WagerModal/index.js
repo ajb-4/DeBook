@@ -224,15 +224,15 @@ return (
                 <div onClick={closeModal} id='wagermodal-closebutton'>
                     &times;
                 </div>
-                <div id='wagermodal-wagersummary'>
-                    <div>Team(margin)</div>
-                    <div>Size(ETH)</div>
-                </div>
-                <div id='wagermodal-wagersummary'>
-                    <div>{outcome}{margin && (<>({formattedNum(margin)})</>)}</div>
-                    <div>{amount}</div>
-                </div>
                 <div id='wagermodal-createwagerform'>
+                    <div id='wagermodal-wagersummary'>
+                        <div>Team(margin)</div>
+                        <div>Size(ETH)</div>
+                    </div>
+                    <div id='wagermodal-wagersummary'>
+                        <div>{outcome}{margin && (<>({formattedNum(margin)})</>)}</div>
+                        <div>{amount}</div>
+                    </div>
                     {/* <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" /> */}
                     {acceptableWager && 
                         <>
