@@ -11,7 +11,7 @@ const WagerIndexItem = ({wager}) => {
 
 
     //still unable to work through the 'extent react app'
-    const acceptWager = async (wagerId) => {
+    const acceptWager = async (wager) => {
         try {
             setLoading(true);
             const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -19,11 +19,11 @@ const WagerIndexItem = ({wager}) => {
             const signer = provider.getSigner();
             const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
             const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
-            debugger
-            await contract.acceptWager(wagerId, { value: wager.amount });
+
+            await contract.acceptWager(wager.wagerId, { value: wager.amount });
             setLoading(false);
         } catch (error) {
-            debugger
+
             setLoading(false);
             // setError(error.message);
         }

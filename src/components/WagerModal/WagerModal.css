@@ -108,10 +108,25 @@
     height: 350px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: flex-start;
     padding: 40px;
     padding-top: 0px;
     padding-left: 0px;
+}
+
+#wagermodal-createwagerform > * {
+    margin-top: 30px;
+}
+
+#wagermodal-createwagerform > *:first-child {
+    margin-top: 0;
+}
+
+#wagermodal-wagersummary {
+    font-size: 14px;
+    height: 40px;
+    display: flex;
+    justify-content: space-between;
 }
 
 #wagermodal-createwagerform input {
@@ -169,3 +184,18 @@
 #wagermodal-createwagerbutton:hover {
     background-color: rgba(11, 179, 67, 0.752);
 }
+
+#wagermodal-cancelwagerbutton {
+    cursor: pointer;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgba(100, 100, 100, 0.783);
+    color: white;
+}
+
+#wagermodal-cancelwagerbutton:hover {
+    background-color: rgba(192, 37, 57, 0.727);
+}
+
+

@@ -10,6 +10,7 @@ const WagerModal = ({ closeModal }) => {
     const [gameId, setGameId] = useState("");
     const [outcome, setOutcome] = useState("");
     const [margin, setMargin] = useState("");
+    const [acceptableWager, setAcceptableWager] = useState("");
     const [wagers, setWagers] = useState([]);
     const [celticsWagers, setCelticsWagers] = useState([]);
     const [patriotsWagers, setPatriotsWagers] = useState([]);
@@ -34,6 +35,7 @@ const WagerModal = ({ closeModal }) => {
         setAmount(ethers.utils.formatEther(wager.amount));
         setOutcome(wager.outcome);
         setMargin(ethers.BigNumber.from(wager.margin).toNumber() / 10);
+        setAcceptableWager(wager);
     };
 
 
@@ -96,6 +98,31 @@ const WagerModal = ({ closeModal }) => {
             setLoading(false);
             setError(error.message);
         }
+    };
+
+    const acceptWager = async (wager) => {
+        try {
+            setLoading(true);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await window.ethereum.enable();
+            const signer = provider.getSigner();
+            const contractAddress = '0xb134B85cac4fb99223550BC1C486878c4E53801B';
+            const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
+
+            await contract.acceptWager(wager.wagerId, { value: wager.amount });
+            setLoading(false);
+        } catch (error) {
+
+            setLoading(false);
+            // setError(error.message);
+        }
+    };
+
+    const cancelWager = () => {
+        setAmount("");
+        setOutcome("");
+        setMargin("");
+        setAcceptableWager("");
     };
 
     const selectedoutcome = (team) => {
@@ -197,22 +224,37 @@ return (
                 <div onClick={closeModal} id='wagermodal-closebutton'>
                     &times;
                 </div>
+                <div id='wagermodal-wagersummary'>
+                    <div>Team(margin)</div>
+                    <div>Size(ETH)</div>
+                </div>
+                <div id='wagermodal-wagersummary'>
+                    <div>{outcome}{margin && (<>({formattedNum(margin)})</>)}</div>
+                    <div>{amount}</div>
+                </div>
                 <div id='wagermodal-createwagerform'>
                     {/* <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" /> */}
-                    <div id='wagermodal-wagersummary'>Outcome: {outcome}</div>
-                    <div id='wagermodal-wagersummary'>Margin: {formattedNum(margin)}</div>
-                    <div id='wagermodal-wagersummary'>Size: {amount} ETH</div>
-                    <div id="wagermodal-selectoutcome">
-                        <div id='wagermodal-Celticsbutton'>
-                            <button onClick={() => setOutcome("Celtics")} className='wagermodal-outcomebutton' id={selectedoutcome("Celtics") ? 'selectedoutcome' : ''}>Celtics</button>
-                        </div>
-                        <div id='wagermodal-Patriotsbutton'>
-                            <button onClick={() => setOutcome("Patriots")} className='wagermodal-outcomebutton' id={selectedoutcome("Patriots") ? 'selectedoutcome' : ''}>Patriots</button>
-                        </div>
-                    </div>
-                    <input type="number" step='0.5' value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin (points)" />
-                    <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount (ETH)" />
-                    <button onClick={createWager} disabled={loading} id='wagermodal-createwagerbutton'>Create Wager</button>
+                    {acceptableWager && 
+                        <>
+                            <button onClick={() => acceptWager(acceptableWager)} disabled={loading} id='wagermodal-createwagerbutton'>Accept Wager</button>
+                            <button onClick={() => cancelWager()} disabled={loading} id='wagermodal-cancelwagerbutton'>Cancel Wager</button>
+                        </>
+                    }
+                    {!acceptableWager && 
+                        <>
+                            <div id="wagermodal-selectoutcome">
+                                <div id='wagermodal-Celticsbutton'>
+                                    <button onClick={() => setOutcome("Celtics")} className='wagermodal-outcomebutton' id={selectedoutcome("Celtics") ? 'selectedoutcome' : ''}>Celtics</button>
+                                </div>
+                                <div id='wagermodal-Patriotsbutton'>
+                                    <button onClick={() => setOutcome("Patriots")} className='wagermodal-outcomebutton' id={selectedoutcome("Patriots") ? 'selectedoutcome' : ''}>Patriots</button>
+                                </div>
+                            </div>
+                            <input type="number" step='0.5' value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin (points)" />
+                            <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount (ETH)" />
+                            <button onClick={createWager} disabled={loading} id='wagermodal-createwagerbutton'>Create Wager</button>
+                        </>
+                    }
                     {error && <div>{error}</div>}
                 </div>
             </div>           
