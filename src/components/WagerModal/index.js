@@ -206,7 +206,7 @@ return (
                                 <div key={index} id='wagermodal-orderitemteamone' onClick={() => clickorderitem(wager)}>
                                     <div>{wager.outcome}</div>
                                     <div>{formatMargin(wager.margin)}</div>
-                                    <div>{ethers.utils.formatEther(wager.amount)}</div>
+                                    <div>{ethers.utils.formatUnits(wager.amount, 6)}</div>
                                 </div>
                             ))}
                     </div>
@@ -221,7 +221,7 @@ return (
                                 <div key={index} id='wagermodal-orderitemteamtwo' onClick={() => clickorderitem(wager)}>
                                     <div>{wager.outcome}</div>
                                     <div>{formatMargin(wager.margin)}</div>
-                                    <div>{ethers.utils.formatEther(wager.amount)}</div>
+                                    <div>{ethers.utils.formatUnits(wager.amount, 6)}</div>
                                 </div>
                             ))}
                         </div>

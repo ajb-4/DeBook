@@ -73,8 +73,8 @@ const WagerIndexItem = ({wager}) => {
                 <div>{wagerTypeName(wager.wagerType)}:  {formatMargin(wager.margin)}</div>
             </div>
             <div id='wagerindexitem-money'>
-                <div>Risk: {ethers.utils.formatEther(wager.amount)} USDC</div>
-                <div>Win: {ethers.utils.formatEther(wager.amount)} USDC</div>
+                <div>Risk: {ethers.utils.formatUnits(wager.amount, 6)} USDC</div>
+                <div>Win: {ethers.utils.formatUnits(wager.amount, 6)} USDC</div>
             </div>
             <div id='wagerindexitem-participants'>
                 <div>
