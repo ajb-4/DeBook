@@ -200,7 +200,7 @@ return (
                         <div id='wagermodal-marketheader'>
                             <div>Team</div>
                             <div>Spread</div>
-                            <div>ETH</div>
+                            <div>USDC</div>
                         </div>
                             {celticsWagers.map((wager, index) => (
                                 <div key={index} id='wagermodal-orderitemteamone' onClick={() => clickorderitem(wager)}>
@@ -215,7 +215,7 @@ return (
                         <div id='wagermodal-marketheader'>
                             <div>Team</div>
                             <div>Spread</div>
-                            <div>ETH</div>
+                            <div>USDC</div>
                         </div>
                             {patriotsWagers.map((wager, index) => (
                                 <div key={index} id='wagermodal-orderitemteamtwo' onClick={() => clickorderitem(wager)}>
@@ -234,7 +234,7 @@ return (
                 <div id='wagermodal-createwagerform'>
                     <div id='wagermodal-wagersummary'>
                         <div>Team(margin)</div>
-                        <div>Size(ETH)</div>
+                        <div>Size(USDC)</div>
                     </div>
                     <div id='wagermodal-wagersummary'>
                         <div>{outcome}{margin && (<>({formattedNum(margin)})</>)}</div>
@@ -258,7 +258,7 @@ return (
                                 </div>
                             </div>
                             <input type="number" step='0.5' value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin (points)" />
-                            <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount (ETH)" />
+                            <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount (USDC)" />
                             <button onClick={createWager} disabled={loading} id='wagermodal-createwagerbutton'>Create Wager</button>
                         </>
                     }
