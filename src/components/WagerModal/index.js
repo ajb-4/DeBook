@@ -33,7 +33,7 @@ const WagerModal = ({ closeModal }) => {
     };
 
     const clickorderitem = (wager) => {
-        setAmount(ethers.utils.formatEther(wager.amount));
+        setAmount(Number(ethers.utils.formatUnits(wager.amount, 6)).toFixed(2));
         setOutcome(wager.outcome);
         setMargin(ethers.BigNumber.from(wager.margin).toNumber() / 10);
         setAcceptableWager(wager);
@@ -206,7 +206,7 @@ return (
                                 <div key={index} id='wagermodal-orderitemteamone' onClick={() => clickorderitem(wager)}>
                                     <div>{wager.outcome}</div>
                                     <div>{formatMargin(wager.margin)}</div>
-                                    <div>{ethers.utils.formatUnits(wager.amount, 6)}</div>
+                                    <div>{Number(ethers.utils.formatUnits(wager.amount, 6)).toFixed(2)}</div>
                                 </div>
                             ))}
                     </div>
@@ -221,7 +221,7 @@ return (
                                 <div key={index} id='wagermodal-orderitemteamtwo' onClick={() => clickorderitem(wager)}>
                                     <div>{wager.outcome}</div>
                                     <div>{formatMargin(wager.margin)}</div>
-                                    <div>{ethers.utils.formatUnits(wager.amount, 6)}</div>
+                                    <div>{Number(ethers.utils.formatUnits(wager.amount, 6)).toFixed(2)}</div>
                                 </div>
                             ))}
                         </div>

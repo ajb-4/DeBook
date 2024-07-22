@@ -69,6 +69,23 @@ const NavBar = () => {
         checkConnectionAndBalance();
     }, []);
 
+    useEffect(() => {
+        if (window.ethereum) {
+            window.ethereum.on('accountsChanged', async (accounts) => {
+                if (accounts.length === 0) {
+                    setConnected(false);
+                    setBalance(null);
+                } else {
+                    const chainId = 11155111;
+                    const provider = new Web3Provider(window.ethereum, chainId);
+                    const signer = provider.getSigner();
+                    const userBalance = await signer.getBalance();
+                    setBalance(parseFloat(ethers.utils.formatEther(userBalance)).toFixed(3));
+                }
+            });
+        }
+    }, []);
+
     return (
         <>
             <div id='navbar-outtercontainer'>
