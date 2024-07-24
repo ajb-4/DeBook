@@ -2,11 +2,11 @@
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import './ChainlinkConsumer.sol'; //import
+import './ChainlinkConsumer.sol';
 
 contract DeBook {
 
-    ChainlinkConsumer public chainlinkConsumer; // declare contract
+    ChainlinkConsumer public chainlinkConsumer;
 
     enum WagerType { Spread, Moneyline, OverUnder }
 
@@ -95,11 +95,11 @@ contract DeBook {
     }
 
 
-    function requestWagerResult(uint256 wagerId, string memory url, string memory path) public {
+    function requestWagerResult(uint256 wagerId) public {
         Wager storage existingWager = wagers[wagerId];
         require(existingWager.isAccepted, "Wager has not been accepted");
 
-        chainlinkConsumer.requestData(url, path);
+        chainlinkConsumer.requestData();
     }
 }
 
