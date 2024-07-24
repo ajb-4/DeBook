@@ -10,14 +10,15 @@ contract ChainlinkConsumer is ChainlinkClient {
     bytes32 private jobId;
     uint256 private fee;
     uint256 public result;
+    string public resultString;
 
-    event RequestFulfilled(bytes32 indexed requestId, uint256 indexed result);
+    event RequestFulfilled(bytes32 indexed requestId, string indexed result);
 
-    constructor(address _oracle, bytes32 _jobId, uint256 _fee) {
+    constructor(address _oracle, bytes32 _jobId) {
         _setChainlinkToken(0x779877A7B0D9E8603169DdbD7836e478b4624789);
         oracle = _oracle;
         jobId = _jobId;
-        fee = _fee;
+        fee = (1 * LINK_DIVISIBILITY) / 10;
     }
 
     function requestData() public returns (bytes32 requestId) {
@@ -27,9 +28,9 @@ contract ChainlinkConsumer is ChainlinkClient {
         return _sendChainlinkRequestTo(oracle, request, fee);
     }
 
-    function fulfill(bytes32 _requestId, uint256 _result) public recordChainlinkFulfillment(_requestId) {
-        result = _result;
-        emit RequestFulfilled(_requestId, _result);
+    function fulfill(bytes32 _requestId, bytes memory bytesData) public recordChainlinkFulfillment(_requestId) {
+        resultString = abi.decode(bytesData, (string));
+        emit RequestFulfilled(_requestId, resultString);
     }
 
     function getLatestResult() public view returns (uint256) {
