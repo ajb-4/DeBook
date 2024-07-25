@@ -14,7 +14,7 @@ const UserProfile = () => {
             try {
                 setLoading(true);
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const contractAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
+                const contractAddress = '14198f64598221BAf7f968cb4Ee27E01E';
                 const contract = new ethers.Contract(contractAddress, DeBookABI, provider);
                 const wagersCount = await contract.getWagerCounter();
     

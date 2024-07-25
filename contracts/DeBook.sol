@@ -80,18 +80,18 @@ contract DeBook {
         require(!existingWager.settled, "Wager has already been settled");
 
         // Fetch the latest result from ChainlinkConsumer
-        uint256 result = chainlinkConsumer.getLatestResult();
+        string result = chainlinkConsumer.getLatestResult();
 
         // Add your logic here to compare the result and determine the winner
         // For simplicity, let's assume result == 1 means creator wins, result == 2 means acceptor wins
-        if (result == 1) {
+        if (result == "Rick Sanchez") {
             require(usdcToken.transfer(existingWager.creator, existingWager.amount * 2), "USDC transfer to creator failed");
-        } else if (result == 2) {
+        } else if (result != "Rick Sanchez") {
             require(usdcToken.transfer(existingWager.acceptor, existingWager.amount * 2), "USDC transfer to acceptor failed");
         }
 
         existingWager.settled = true;
-        emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, result == 1 ? "creator wins" : "acceptor wins");
+        emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, result == "Rick Sanchez" ? "creator wins" : "acceptor wins");
     }
 
 

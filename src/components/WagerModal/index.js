@@ -75,7 +75,7 @@ const WagerModal = ({ closeModal }) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const deBookAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
+            const deBookAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
             const deBookContract = new ethers.Contract(deBookAddress, DeBookABI, signer);
             const usdcAddress = '0x1974F3e0589835919ad8e250F340d40b861b4991';
             const usdcContract = new ethers.Contract(usdcAddress, MockUSDCAbi, signer);
@@ -103,7 +103,7 @@ const WagerModal = ({ closeModal }) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const deBookAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
+            const deBookAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
             const deBookContract = new ethers.Contract(deBookAddress, DeBookABI, signer);
             const usdcAddress = '0x1974F3e0589835919ad8e250F340d40b861b4991';
             const usdcContract = new ethers.Contract(usdcAddress, MockUSDCAbi, signer);
@@ -141,7 +141,7 @@ const WagerModal = ({ closeModal }) => {
             try {
                 setLoading(true);
                 const provider = new ethers.providers.Web3Provider(window.ethereum);
-                const contractAddress = '0xd9F74B414198f64598221BAf7f968cb4Ee27E01E';
+                const contractAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
                 const contract = new ethers.Contract(contractAddress, DeBookABI, provider);
                 const wagersCount = await contract.getWagerCounter();
     

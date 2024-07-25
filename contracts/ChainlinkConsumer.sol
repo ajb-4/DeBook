@@ -23,8 +23,8 @@ contract ChainlinkConsumer is ChainlinkClient {
 
     function requestData() public returns (bytes32 requestId) {
         Chainlink.Request memory request = _buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
-        request._add("get", "https://api.the-odds-api.com/v4/sports/baseball_mlb/odds/?apiKey=a1a74e05fc54445bbb59e3f10bd275ee&regions=us&markets=h2h,spreads&oddsFormat=american");
-        request._add("path", "games");
+        request._add("get", "https://rickandmortyapi.com/api/character/1");
+        request._add("path", "name");
         return _sendChainlinkRequestTo(oracle, request, fee);
     }
 
@@ -33,7 +33,7 @@ contract ChainlinkConsumer is ChainlinkClient {
         emit RequestFulfilled(_requestId, resultString);
     }
 
-    function getLatestResult() public view returns (uint256) {
-        return result;
+    function getLatestResult() public view returns (string memory) {
+        return resultString;
     }
 }
