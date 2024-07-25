@@ -20,19 +20,19 @@ contract ChainlinkConsumer is ChainlinkClient {
         jobId = _jobId;
         fee = (1 * LINK_DIVISIBILITY) / 10;
     }
-
+    // fetch function
     function requestData() public returns (bytes32 requestId) {
         Chainlink.Request memory request = _buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
         request._add("get", "https://rickandmortyapi.com/api/character/1");
         request._add("path", "name");
         return _sendChainlinkRequestTo(oracle, request, fee);
     }
-
+    // handle response function
     function fulfill(bytes32 _requestId, bytes memory bytesData) public recordChainlinkFulfillment(_requestId) {
         resultString = abi.decode(bytesData, (string));
         emit RequestFulfilled(_requestId, resultString);
     }
-
+    // public getter
     function getLatestResult() public view returns (string memory) {
         return resultString;
     }

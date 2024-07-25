@@ -31,7 +31,7 @@ const NavBar = () => {
             const chainId = 11155111;
             const provider = new ethers.providers.Web3Provider(window.ethereum, chainId);
             const signer = provider.getSigner();
-            const mockUSDCContract = new ethers.Contract("0x1974F3e0589835919ad8e250F340d40b861b4991", ['function mint(address account, uint256 amount)'], signer);
+            const mockUSDCContract = new ethers.Contract(process.env.REACT_APP_MOCKUSDC_CONTRACT_ADDRESS, ['function mint(address account, uint256 amount)'], signer);
 
             const receiverAddress = await signer.getAddress();
             const amountToMint = ethers.utils.parseUnits("1000", 6);

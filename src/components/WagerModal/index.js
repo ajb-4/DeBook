@@ -77,7 +77,7 @@ const WagerModal = ({ closeModal }) => {
             const signer = provider.getSigner();
             const deBookAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
             const deBookContract = new ethers.Contract(deBookAddress, DeBookABI, signer);
-            const usdcAddress = '0x1974F3e0589835919ad8e250F340d40b861b4991';
+            const usdcAddress = process.env.REACT_APP_MOCKUSDC_CONTRACT_ADDRESS;
             const usdcContract = new ethers.Contract(usdcAddress, MockUSDCAbi, signer);
             const usdcAmount = ethers.utils.parseUnits(amount, 6);
             const marginInt = Math.round(marginValue * 10);
@@ -105,7 +105,7 @@ const WagerModal = ({ closeModal }) => {
             const signer = provider.getSigner();
             const deBookAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
             const deBookContract = new ethers.Contract(deBookAddress, DeBookABI, signer);
-            const usdcAddress = '0x1974F3e0589835919ad8e250F340d40b861b4991';
+            const usdcAddress = process.env.REACT_APP_MOCKUSDC_CONTRACT_ADDRESS;
             const usdcContract = new ethers.Contract(usdcAddress, MockUSDCAbi, signer);
             const usdcAmount = wager.amount;
     

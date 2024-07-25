@@ -80,22 +80,21 @@ contract DeBook {
         require(!existingWager.settled, "Wager has already been settled");
 
         // Fetch the latest result from ChainlinkConsumer
-        string result = chainlinkConsumer.getLatestResult();
+        string memory result = chainlinkConsumer.getLatestResult();
 
-        // Add your logic here to compare the result and determine the winner
-        // For simplicity, let's assume result == 1 means creator wins, result == 2 means acceptor wins
-        if (result == "Rick Sanchez") {
+        if (keccak256(abi.encodePacked(result)) == keccak256(abi.encodePacked("Rick Sanchez"))) {
             require(usdcToken.transfer(existingWager.creator, existingWager.amount * 2), "USDC transfer to creator failed");
-        } else if (result != "Rick Sanchez") {
+            existingWager.settled = true;
+            emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, "creator wins");
+        } else if (false) {
             require(usdcToken.transfer(existingWager.acceptor, existingWager.amount * 2), "USDC transfer to acceptor failed");
+            existingWager.settled = true;
+            emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, "acceptor wins");
         }
-
-        existingWager.settled = true;
-        emit WagerSettled(existingWager.creator, existingWager.acceptor, existingWager.amount, existingWager.gameId, existingWager.wagerType, existingWager.margin, existingWager.outcome, result == "Rick Sanchez" ? "creator wins" : "acceptor wins");
     }
 
-
-    function requestWagerResult(uint256 wagerId) public {
+    // Can change function back to public after testing
+    function requestWagerResult(uint256 wagerId) external {
         Wager storage existingWager = wagers[wagerId];
         require(existingWager.isAccepted, "Wager has not been accepted");
 

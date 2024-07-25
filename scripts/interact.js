@@ -10,7 +10,7 @@ async function main() {
     const DeBook = await ethers.getContractFactory("DeBook");
   
     // Connect to the deployed contract using its address
-    const deBookAddress = "0xeE5ff19fa56916dd3bD7074978df457007933603";
+    const deBookAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
     console.log("Connecting to contract at address:", deBookAddress);
     const deBook = DeBook.attach(deBookAddress);
   
