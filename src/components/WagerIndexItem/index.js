@@ -2,6 +2,7 @@ import './WagerIndexItem.css'
 import { useState} from 'react';
 import { ethers } from 'ethers';
 import DeBookABI from '../DeBookABI.json';
+import MockUSDCAbi from '../MockUSDCABI.json';
 
 const WagerIndexItem = ({wager}) => {
 
@@ -17,17 +18,63 @@ const WagerIndexItem = ({wager}) => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             await window.ethereum.enable();
             const signer = provider.getSigner();
-            const contractAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
-            const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
+            const deBookAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
+            const deBookContract = new ethers.Contract(deBookAddress, DeBookABI, signer);
+            const usdcAddress = process.env.REACT_APP_MOCKUSDC_CONTRACT_ADDRESS;
+            const usdcContract = new ethers.Contract(usdcAddress, MockUSDCAbi, signer);
+            const usdcAmount = wager.amount;
+            debugger
+            // Wait for USDC spend approval
+            const approveTx = await usdcContract.approve(deBookAddress, usdcAmount);
+            await approveTx.wait();
 
-            await contract.acceptWager(wager.wagerId, { value: wager.amount });
+            const transaction = await deBookContract.acceptWager(wager.wagerId, { value: 0 }); // Passing 0 value as no ETH is needed
+            await transaction.wait();
+    
             setLoading(false);
         } catch (error) {
-
             setLoading(false);
+            console.error(error);
             // setError(error.message);
         }
     };
+
+    const settleWager = async () => {
+        try {
+            setLoading(true);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await window.ethereum.enable();
+            const signer = provider.getSigner();
+            const contractAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
+            const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
+            debugger
+            await contract.settleWager(wager.wagerId, { value: 0 });
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.error(error.message);
+        }
+    };
+
+    const requestData = async () => {
+        try {
+            setLoading(true);
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            await window.ethereum.enable();
+            const signer = provider.getSigner();
+            const contractAddress = process.env.REACT_APP_DEBOOK_CONTRACT_ADDRESS;
+            const contract = new ethers.Contract(contractAddress, DeBookABI, signer);
+            debugger
+            await contract.requestWagerResult(wager.wagerId, {
+                gasLimit: 10000000
+            });
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
+            console.error(error.message);
+        }
+    };
+
 
     function wagerTypeName(wagerType) {
         switch (wagerType) {
@@ -81,6 +128,8 @@ const WagerIndexItem = ({wager}) => {
                     <div>Maker:</div>
                     <div>{shortenAddress(wager.creator)}</div>
                 </div>
+                <div onClick={() => settleWager()} disabled={loading}  id='wagerindexitem-acceptbutton'>Settle</div>
+                <div onClick={() => requestData()} disabled={loading}  id='wagerindexitem-acceptbutton'>Get Data</div>
                 {/* <div>Is Accepted: {wager.isAccepted ? 'Yes' : 'No'}</div> */}
                 {wager.isAccepted ? (
                 <div>
@@ -88,7 +137,7 @@ const WagerIndexItem = ({wager}) => {
                     <div>{shortenAddress(wager.acceptor)}</div>
                 </div>
                 ) : (
-                    <div onClick={() => acceptWager(wager.wagerId)} disabled={loading}  id='wagerindexitem-acceptbutton'>Accept Wager</div>
+                    <div onClick={() => acceptWager(wager)} disabled={loading}  id='wagerindexitem-acceptbutton'>Accept Wager</div>
                 )}
             </div>
            
