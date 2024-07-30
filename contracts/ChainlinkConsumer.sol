@@ -6,18 +6,16 @@ import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 contract ChainlinkConsumer is ChainlinkClient {
     using Chainlink for Chainlink.Request;
 
-    address private oracle;
     bytes32 private jobId;
     uint256 private fee;
-    uint256 public result;
     string public resultString;
 
     event RequestFulfilled(bytes32 indexed requestId, string indexed result);
 
-    constructor(address _oracle, bytes32 _jobId) {
+    constructor() {
         _setChainlinkToken(0x779877A7B0D9E8603169DdbD7836e478b4624789);
-        oracle = _oracle;
-        jobId = _jobId;
+        _setChainlinkOracle(0x6090149792dAAeE9D1D568c9f9a6F6B46AA29eFD);
+        jobId = "7d80a6386ef543a3abb52817f6707e3b"; // GET >> STRING
         fee = (1 * LINK_DIVISIBILITY) / 10;
     }
     // fetch function
@@ -25,11 +23,12 @@ contract ChainlinkConsumer is ChainlinkClient {
         Chainlink.Request memory request = _buildChainlinkRequest(jobId, address(this), this.fulfill.selector);
         request._add("get", "https://rickandmortyapi.com/api/character/1");
         request._add("path", "name");
-        return _sendChainlinkRequestTo(oracle, request, fee);
+        return _sendChainlinkRequest(request, fee);
     }
     // handle response function
     function fulfill(bytes32 _requestId, bytes memory bytesData) public recordChainlinkFulfillment(_requestId) {
-        resultString = abi.decode(bytesData, (string));
+        // resultString = abi.decode(bytesData, (string));
+        resultString = string(bytesData);
         emit RequestFulfilled(_requestId, resultString);
     }
     // public getter

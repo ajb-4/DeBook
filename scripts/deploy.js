@@ -7,8 +7,6 @@ const { abi: deBookABI } = require("../artifacts/contracts/DeBook.sol/DeBook.jso
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829");
   const privateKey = "0f9250ece3c3eab0c3c9ee22247b84af0ffcd7314b96929e7d15373704a1ab13";
-  const oracleAddress = "0x6090149792dAAeE9D1D568c9f9a6F6B46AA29eFD"
-  const jobId = ethers.utils.hexlify(ethers.utils.toUtf8Bytes("7da2702f37fd48e5b1b9a5715e3509b6")); // GET > bytes 
 
   const wallet = new ethers.Wallet(privateKey, provider);
   ///
@@ -23,10 +21,7 @@ async function main() {
   console.log("MockUSDC ABI written to MockUSDCABI.json");
   ///
   const ChainlinkConsumer = await ethers.getContractFactory("ChainlinkConsumer");
-  const chainlinkConsumer = await ChainlinkConsumer.deploy(
-      oracleAddress,
-      jobId
-  );
+  const chainlinkConsumer = await ChainlinkConsumer.deploy();
   await chainlinkConsumer.deployed();
 
   console.log("ChainlinkConsumer deployed to:", chainlinkConsumer.address);
