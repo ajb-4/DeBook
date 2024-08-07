@@ -1,5 +1,5 @@
 #wagerindex-outtercontainer {
-    font-family: 'Courier New', monospace;
+    font-family: 'Poppins', sans-serif;
 }
 
 #wagerindex-header {
@@ -12,7 +12,7 @@
 #wagerindex-createwager {
     cursor: pointer;
     margin-left: 40px;
-    font-family: 'Courier New', monospace;
+    font-family: 'Poppins', sans-serif;
     color: white;
     background-color: rgba(99, 149, 109, 0.747);
     border: none;
@@ -34,7 +34,8 @@
     width: calc(33.33% - 20px);
     margin: 10px;
     box-sizing: border-box;
-    background-color: rgba(171, 181, 236, 0.244);
+    background-color: rgb(20, 20, 20);
+    border: 0.5px solid rgb(92, 92, 92);
     border-radius: 20px;
     padding: 20px;
     color: white;

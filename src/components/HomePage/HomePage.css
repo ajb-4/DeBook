@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to right, #29323c, #485563);
+    background: linear-gradient(to right, #121212, #191919, #121212);
     height: 100vh;
 }
 
@@ -13,7 +13,7 @@
     margin-right: 100px;
     width: 1300px;
     padding: 30px;
-    background-color: rgba(4, 38, 98, 0.392);
+    background-color: rgb(38, 38, 38);
     border-radius: 20px;
     overflow: auto;
 }
@@ -26,7 +26,7 @@
     width: 1300px;
     height: 500px;
     padding: 30px;
-    background-color: rgba(4, 38, 98, 0.392);
+    background-color: rgb(38, 38, 38);
     border-radius: 20px;
     overflow: auto;
 }

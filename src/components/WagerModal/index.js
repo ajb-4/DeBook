@@ -161,7 +161,7 @@ const WagerModal = ({ closeModal }) => {
             }
         }
         fetchWagers();
-    }, []);
+    }, [wagers]);
 
     useEffect(() => {
         setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 1));

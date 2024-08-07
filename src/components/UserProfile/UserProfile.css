@@ -1,7 +1,7 @@
 #userprofile-outtercontainer {
     background: linear-gradient(to right, #29323c, #485563);
     height: 100vh;
-    font-family: 'Courier New', monospace;
+    font-family: 'Poppins', sans-serif;
     color: white;
     display: flex;
     flex-direction: column;

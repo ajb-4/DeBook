@@ -19,7 +19,7 @@ const NavBar = () => {
             const provider = new Web3Provider(window.ethereum, chainId);
             const signer = provider.getSigner();
             const userBalance = await signer.getBalance();
-            setBalance(ethers.utils.formatEther(userBalance));
+            setBalance(parseFloat(ethers.utils.formatEther(userBalance)).toFixed(3));
             setConnected(!connected);
         } catch (error) {
             console.error('Error connecting to MetaMask:', error.message);
@@ -42,7 +42,7 @@ const NavBar = () => {
 
             // Optionally update balance after minting
             const userBalance = await signer.getBalance();
-            setBalance(ethers.utils.formatEther(userBalance));
+            setBalance(parseFloat(ethers.utils.formatEther(userBalance)).toFixed(3));
         } catch (error) {
             console.error('Error minting USDC:', error.message);
         }
@@ -99,7 +99,7 @@ const NavBar = () => {
                     </div>
                 </div>
                 <div id='navbar-middle'>
-                    <Link to='/'>DeBook</Link>
+                    <Link to='/'>BLCK MRKT</Link>
                 </div>
                 <div id='navbar-wallet' onClick={connectToMetamask}>
                     <button onClick={mintUsdc} id="navbar-mintbutton">Mint USDC</button>

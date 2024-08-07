@@ -19,9 +19,9 @@ const GameIndexItem = ({game}) => {
                     <div>{game.sport_title}</div>
                 </div>
                 <div id='gameindexitem-matchup'>
-                    <div id='gameindexitem-awayteam'>{game.away_team.split(' ')[0]}</div>
+                    <div id='gameindexitem-awayteam'>{game.away_team.split(' ').pop()}</div>
                     <div id='gameindexitem-atsign'>@</div>
-                    <div id='gameindexitem-hometeam'>{game.home_team.split(' ')[0]}</div>
+                    <div id='gameindexitem-hometeam'>{game.home_team.split(' ').pop()}</div>
                 </div>
                 <div id='gameindexitem-moneylines'>
                     <div id='gameindexitem-betoption'>{formattedNum(homeMl)}</div>

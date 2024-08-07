@@ -1,5 +1,5 @@
 #gameindex-outtercontainer {
-    font-family: 'Courier New', monospace;
+    font-family: 'Poppins', sans-serif;
 }
 
 #gameindex-header {
@@ -18,7 +18,8 @@
     width: calc(33.33% - 20px);
     margin: 10px;
     box-sizing: border-box;
-    background-color: rgba(171, 181, 236, 0.244);
+    background-color: rgb(20, 20, 20);
+    border: 0.5px solid rgb(92, 92, 92);
     border-radius: 20px;
     padding: 25px;
     color: white;
