@@ -8,7 +8,7 @@ const UserProfile = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-
+// test
     useEffect(() => {
         async function fetchWagers() {
             try {
