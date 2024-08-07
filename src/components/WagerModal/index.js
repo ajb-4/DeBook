@@ -41,6 +41,7 @@ const WagerModal = ({ closeModal }) => {
 
 
     const createWager = async () => {
+        debugger
         try {
             if (amount === "") {
                 setError("Please enter a valid amount");
@@ -243,8 +244,8 @@ return (
                     {/* <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" /> */}
                     {acceptableWager && 
                         <>
-                            <button onClick={() => acceptWager(acceptableWager)} disabled={loading} id='wagermodal-createwagerbutton'>Accept Wager</button>
-                            <button onClick={() => cancelWager()} disabled={loading} id='wagermodal-cancelwagerbutton'>Cancel Wager</button>
+                            <button onClick={() => acceptWager(acceptableWager)} id='wagermodal-createwagerbutton'>Accept Wager</button>
+                            <button onClick={() => cancelWager()} id='wagermodal-cancelwagerbutton'>Cancel Wager</button>
                         </>
                     }
                     {!acceptableWager && 
@@ -259,7 +260,7 @@ return (
                             </div>
                             <input type="number" step='0.5' value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin (points)" />
                             <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter amount (USDC)" />
-                            <button onClick={createWager} disabled={loading} id='wagermodal-createwagerbutton'>Create Wager</button>
+                            <button onClick={createWager} id='wagermodal-createwagerbutton'>Create Wager</button>
                         </>
                     }
                     {error && <div>{error}</div>}

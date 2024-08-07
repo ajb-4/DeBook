@@ -16,7 +16,8 @@
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    background-color: rgba(66, 92, 244, 0.244);
+    background-color: rgb(18, 18, 18);
+    border: 1px solid gray;
     border-radius: 20px;
     padding: 20px;
     color: white;
