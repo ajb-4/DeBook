@@ -20,7 +20,7 @@ const GameIndex = () => {
     return (
         <>
             <div id='gameindex-outtercontainer'>
-                <div id='gameindex-header'>Games to bet on</div>
+                <div id='gameindex-header'>Games</div>
                 <div id='gameindex-container'>   
                     {first8Games.map(game =>
                         <div id='gameindexitem'>

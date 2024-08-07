@@ -102,7 +102,7 @@ const NavBar = () => {
                     <Link to='/'>BLCK MRKT</Link>
                 </div>
                 <div id='navbar-wallet' onClick={connectToMetamask}>
-                    <button onClick={mintUsdc} id="navbar-mintbutton">Mint USDC</button>
+                    <button onClick={mintUsdc} id="navbar-mintbutton">MINT USDC</button>
                     <div id='navbar-connectedheader'>{connected ? 'CONNECTED' : ''}</div>
                     <i className="fa-thin fa-wallet"></i>
                 </div>
