@@ -5,19 +5,29 @@ import DeBookABI from '../DeBookABI.json';
 import MockUSDCAbi from '../MockUSDCABI.json';
 
 
-const WagerModal = ({ closeModal }) => {
+const WagerModal = ({ closeModal, game }) => {
 
     const [amount, setAmount] = useState("");
-    const [gameId, setGameId] = useState("");
+    // const [gameId, setGameId] = useState("");
     const [outcome, setOutcome] = useState("");
     const [margin, setMargin] = useState("");
     const [acceptableWager, setAcceptableWager] = useState("");
     const [wagers, setWagers] = useState([]);
-    const [celticsWagers, setCelticsWagers] = useState([]);
-    const [patriotsWagers, setPatriotsWagers] = useState([]);
+    const [homeTeamWagers, setHomeTeamWagers] = useState([]);
+    const [awayTeamWagers, setAwayTeamWagers] = useState([]);
     const [filteredWagers, setFilteredWagers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const formatName = (team)=> {
+        if (team === "home") {
+            return game?.home_team.split(" ").pop();
+        } else if (team === "away") {
+            return game?.away_team.split(" ").pop();
+        } else {
+            return team;
+        }
+    };
     
     const formattedNum = (num) => {
         return num > 0 ? `+${num}` : num;
@@ -169,25 +179,25 @@ const WagerModal = ({ closeModal }) => {
     }, [wagers]);
     
     useEffect(() => {
-        const celticsWagers = filteredWagers.filter(wager => wager.outcome === "Celtics").filter(wager=>!wager.isAccepted);
-        const patriotsWagers = filteredWagers.filter(wager => wager.outcome === "Patriots").filter(wager=>!wager.isAccepted);
+        const homeTeamWagers = filteredWagers.filter(wager => wager.outcome === "home").filter(wager=>!wager.isAccepted);
+        const awayTeamWagers = filteredWagers.filter(wager => wager.outcome === "away").filter(wager=>!wager.isAccepted);
 
         // Chat GPT's suggestion, don's understand the marginA.sub(marginB) function call 
 
-        celticsWagers.sort((a, b) => {
+        homeTeamWagers.sort((a, b) => {
             const marginA = ethers.BigNumber.from(a.margin);
             const marginB = ethers.BigNumber.from(b.margin);
             return marginA.sub(marginB).toNumber();
         });
 
-        patriotsWagers.sort((a, b) => {
+        awayTeamWagers.sort((a, b) => {
             const marginA = ethers.BigNumber.from(a.margin);
             const marginB = ethers.BigNumber.from(b.margin);
             return marginA.sub(marginB).toNumber();
         });
         
-        setCelticsWagers(celticsWagers);
-        setPatriotsWagers(patriotsWagers);
+        setHomeTeamWagers(homeTeamWagers);
+        setAwayTeamWagers(awayTeamWagers);
     }, [filteredWagers]);
 
 
@@ -197,30 +207,30 @@ return (
             <div id='wagermodal-marketcontainer'>
                 <div id='wagermodal-orderbook'>
                     <div id='wagermodal-teamonebids'>
-                        <div id='wagermodal-teamheader'>Celtics</div>
+                        <div id='wagermodal-teamheader'>{game?.home_team.split(" ").pop()}</div>
                         <div id='wagermodal-marketheader'>
                             <div>Team</div>
                             <div>Spread</div>
                             <div>USDC</div>
                         </div>
-                            {celticsWagers.map((wager, index) => (
+                            {homeTeamWagers.map((wager, index) => (
                                 <div key={index} id='wagermodal-orderitemteamone' onClick={() => clickorderitem(wager)}>
-                                    <div>{wager.outcome}</div>
+                                    <div>{formatName(wager.outcome)}</div>
                                     <div>{formatMargin(wager.margin)}</div>
                                     <div>{Number(ethers.utils.formatUnits(wager.amount, 6)).toFixed(2)}</div>
                                 </div>
                             ))}
                     </div>
                     <div id='wagermodal-teamtwobids'>
-                        <div id='wagermodal-teamheader'>Patriots</div>
+                        <div id='wagermodal-teamheader'>{game?.away_team.split(" ").pop()}</div>
                         <div id='wagermodal-marketheader'>
                             <div>Team</div>
                             <div>Spread</div>
                             <div>USDC</div>
                         </div>
-                            {patriotsWagers.map((wager, index) => (
+                            {awayTeamWagers.map((wager, index) => (
                                 <div key={index} id='wagermodal-orderitemteamtwo' onClick={() => clickorderitem(wager)}>
-                                    <div>{wager.outcome}</div>
+                                    <div>{formatName(wager.outcome)}</div>
                                     <div>{formatMargin(wager.margin)}</div>
                                     <div>{Number(ethers.utils.formatUnits(wager.amount, 6)).toFixed(2)}</div>
                                 </div>
@@ -238,7 +248,7 @@ return (
                         <div>Size(USDC)</div>
                     </div>
                     <div id='wagermodal-wagersummary'>
-                        <div>{outcome}{margin && (<>({formattedNum(margin)})</>)}</div>
+                        <div>{formatName(outcome)}{margin && (<>({formattedNum(margin)})</>)}</div>
                         <div>{amount}</div>
                     </div>
                     {/* <input type="number" value={gameId} onChange={(e) => setGameId(e.target.value)} placeholder="Enter game ID" /> */}
@@ -251,11 +261,11 @@ return (
                     {!acceptableWager && 
                         <>
                             <div id="wagermodal-selectoutcome">
-                                <div id='wagermodal-Celticsbutton'>
-                                    <button onClick={() => setOutcome("Celtics")} className='wagermodal-outcomebutton' id={selectedoutcome("Celtics") ? 'selectedoutcome' : ''}>Celtics</button>
+                                <div id='wagermodal-hometeambutton'>
+                                    <button onClick={() => setOutcome("home")} className='wagermodal-outcomebutton' id={selectedoutcome("home") ? 'selectedoutcome' : ''}>{game?.home_team.split(" ").pop()}</button>
                                 </div>
-                                <div id='wagermodal-Patriotsbutton'>
-                                    <button onClick={() => setOutcome("Patriots")} className='wagermodal-outcomebutton' id={selectedoutcome("Patriots") ? 'selectedoutcome' : ''}>Patriots</button>
+                                <div id='wagermodal-awayteambutton'>
+                                    <button onClick={() => setOutcome("away")} className='wagermodal-outcomebutton' id={selectedoutcome("away") ? 'selectedoutcome' : ''}>{game?.away_team.split(" ").pop()}</button>
                                 </div>
                             </div>
                             <input type="number" step='0.5' value={margin} onChange={(e) => setMargin(e.target.value)} placeholder="Enter margin (points)" />

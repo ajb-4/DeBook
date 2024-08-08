@@ -5,11 +5,15 @@
     height: 100%;
 }
 
-#gameindexitem-sporttype {
+#gameindexitem-top {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     font-size: 14px;
     margin-top: -10px;
+}
+
+#gameindexitem-starttime {
+    font-size: 11px;
 }
 
 #gameindexitem-matchup {

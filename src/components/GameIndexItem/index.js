@@ -11,11 +11,28 @@ const GameIndexItem = ({game}) => {
         return num > 0 ? `+${num}` : num;
     };
 
+    const formatTime = (isoString) => {
+
+        const dateObj = new Date(isoString);
+
+        const month = String(dateObj.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(dateObj.getUTCDate()).padStart(2, '0');
+
+        let hours = dateObj.getUTCHours();
+        const minutes = String(dateObj.getUTCMinutes()).padStart(2, '0');
+
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12; // Convert to 12-hour format
+
+        return `${month}/${day} ${hours}:${minutes} ${ampm}`;
+    }
+
     return (
         <>
 
             <div id='gameindexitem-container'>
-                <div id='gameindexitem-sporttype'>
+                <div id='gameindexitem-top'>
+                    <div id='gameindexitem-starttime'>{formatTime(game.commence_time)}</div>
                     <div>{game.sport_title}</div>
                 </div>
                 <div id='gameindexitem-matchup'>

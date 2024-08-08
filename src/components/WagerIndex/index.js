@@ -57,11 +57,6 @@ const WagerIndex = () => {
                     <button onClick={openModal} id='wagerindex-createwager'>Create Wager</button>
                 </div>
                 <div id='wagerindex-container'>
-                    {showModal && (
-                        <WagerModal
-                        closeModal={closeModal}
-                        />
-                    )}
                     {wagers.map((wager, index) => (
                         <div id='wagerindexitem' key={index}>
                             <WagerIndexItem wager={wager}/>
@@ -69,6 +64,11 @@ const WagerIndex = () => {
                     ))}
                     {error && <div>{error}</div>}
                 </div>
+                    {showModal && (
+                        <WagerModal
+                        closeModal={closeModal}
+                        />
+                    )}
             </div>
         </>
     );
