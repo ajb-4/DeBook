@@ -10,6 +10,7 @@ const GameIndexItem = ({game}) => {
     const formattedNum = (num) => {
         return num > 0 ? `+${num}` : num;
     };
+    //test commit
 
     const formatTime = (isoString) => {
 
