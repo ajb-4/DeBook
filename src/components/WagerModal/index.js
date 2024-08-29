@@ -96,7 +96,7 @@ const WagerModal = ({ closeModal, game }) => {
             // Wait for USDC spend approval
             const approveTx = await usdcContract.approve(deBookAddress, usdcAmount);
             await approveTx.wait();
-    
+            // need to make the game Id dynamic (game.Id)
             const transaction = await deBookContract.createWager(1, 0, marginInt, outcome, usdcAmount);
             await transaction.wait();
     

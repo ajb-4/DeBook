@@ -40,7 +40,6 @@ export const fetchGames = () => async dispatch => {
         
             const games = await response.json();
             dispatch(receiveGames(games));
-            debugger
         } else {
             console.error('Error fetching games: JSON issue', response.statusText);
         }
