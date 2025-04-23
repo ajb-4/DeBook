@@ -8,7 +8,7 @@ import MockUSDCAbi from '../MockUSDCABI.json';
 const WagerModal = ({ closeModal, game }) => {
 
     const [amount, setAmount] = useState("");
-    const [gameId, setGameId] = useState(game.id);
+    const [gameId, setGameId] = useState(game?.id || "");
     const [outcome, setOutcome] = useState("");
     const [margin, setMargin] = useState("");
     const [acceptableWager, setAcceptableWager] = useState("");
@@ -96,8 +96,9 @@ const WagerModal = ({ closeModal, game }) => {
             // Wait for USDC spend approval
             const approveTx = await usdcContract.approve(deBookAddress, usdcAmount);
             await approveTx.wait();
-            // need to make the game Id dynamic (game.Id)
-            const transaction = await deBookContract.createWager(gameId, 0, marginInt, outcome, usdcAmount);
+            
+            const gameIdBytes32 = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(gameId));
+            const transaction = await deBookContract.createWager(gameIdBytes32, 0, marginInt, outcome, usdcAmount);
             await transaction.wait();
     
             setLoading(false);
@@ -175,8 +176,9 @@ const WagerModal = ({ closeModal, game }) => {
     }, [wagers]);
 
     useEffect(() => {
-        setFilteredWagers(wagers.filter(wager => wager.gameId.toNumber() === 1));
-    }, [wagers]);
+        const gameIdHash = ethers.utils.keccak256(ethers.utils.toUtf8Bytes(gameId));
+        setFilteredWagers(wagers.filter(wager => wager.gameId === gameIdHash));
+      }, [wagers, gameId]);
     
     useEffect(() => {
         const homeTeamWagers = filteredWagers.filter(wager => wager.outcome === "home").filter(wager=>!wager.isAccepted);

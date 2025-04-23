@@ -113,7 +113,8 @@ const WagerIndexItem = ({wager}) => {
         <>
         <div id='wagerindexitem-container'>
             <div id='wagerindexitem-game'>
-                <div>GameId: {hexToSignedInt(wager.gameId)}</div>
+            <div>GameId: {wager.gameId.slice(0, 10)}</div>
+
             </div>
             <div id='wagerindexitem-outcome'>
                 <div>{wager.outcome}</div>
