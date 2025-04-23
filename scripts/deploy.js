@@ -6,7 +6,7 @@ const { abi: deBookABI } = require("../artifacts/contracts/DeBook.sol/DeBook.jso
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829");
-  const privateKey = "0f9250ece3c3eab0c3c9ee22247b84af0ffcd7314b96929e7d15373704a1ab13";
+  const privateKey = "5ccc29476f2f6058a5d9fd97ed16cb5a4afac5f01568cc8c486b030f5d46cb4c";
 
   const wallet = new ethers.Wallet(privateKey, provider);
   ///
@@ -19,9 +19,11 @@ async function main() {
   const mockUSDCAbiString = JSON.stringify(mockUSDCAbi);
   fs.writeFileSync('./src/components/MockUSDCABI.json', mockUSDCAbiString);
   console.log("MockUSDC ABI written to MockUSDCABI.json");
-  ///
+  
   const ChainlinkConsumer = await ethers.getContractFactory("ChainlinkConsumer");
-  const chainlinkConsumer = await ChainlinkConsumer.deploy();
+  const chainlinkConsumer = await ChainlinkConsumer.connect(wallet).deploy({
+    gasLimit: 5000000
+  });
   await chainlinkConsumer.deployed();
 
   console.log("ChainlinkConsumer deployed to:", chainlinkConsumer.address);

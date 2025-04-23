@@ -8,7 +8,7 @@ import MockUSDCAbi from '../MockUSDCABI.json';
 const WagerModal = ({ closeModal, game }) => {
 
     const [amount, setAmount] = useState("");
-    // const [gameId, setGameId] = useState("");
+    const [gameId, setGameId] = useState(game.id);
     const [outcome, setOutcome] = useState("");
     const [margin, setMargin] = useState("");
     const [acceptableWager, setAcceptableWager] = useState("");
@@ -97,7 +97,7 @@ const WagerModal = ({ closeModal, game }) => {
             const approveTx = await usdcContract.approve(deBookAddress, usdcAmount);
             await approveTx.wait();
             // need to make the game Id dynamic (game.Id)
-            const transaction = await deBookContract.createWager(1, 0, marginInt, outcome, usdcAmount);
+            const transaction = await deBookContract.createWager(gameId, 0, marginInt, outcome, usdcAmount);
             await transaction.wait();
     
             setLoading(false);

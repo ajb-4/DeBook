@@ -10,16 +10,16 @@ contract DeBook {
 
     enum WagerType { Spread, Moneyline, OverUnder }
 
-    event WagerCreated(address indexed creator, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string outcome);
+    event WagerCreated(address indexed creator, uint256 amount, bytes32 gameId, WagerType wagerType, int256 margin, string outcome);
 
-    event WagerAccepted(address indexed acceptor, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string outcome);
+    event WagerAccepted(address indexed acceptor, uint256 amount, bytes32 gameId, WagerType wagerType, int256 margin, string outcome);
 
-    event WagerSettled(address indexed creator, address indexed acceptor, uint256 amount, uint256 gameId, WagerType wagerType, int256 margin, string outcome, string result);
+    event WagerSettled(address indexed creator, address indexed acceptor, uint256 amount, bytes32 gameId, WagerType wagerType, int256 margin, string outcome, string result);
 
     struct Wager {
         address creator;
         uint256 amount;
-        uint256 gameId;
+        bytes32 gameId;
         WagerType wagerType;
         int256 margin;
         string outcome;
@@ -42,7 +42,7 @@ contract DeBook {
         return wagerCounter;
     }
 
-    function createWager(uint256 gameId, WagerType wagerType, int256 margin, string memory outcome, uint256 usdcAmount) external {
+    function createWager(bytes32 gameId, WagerType wagerType, int256 margin, string memory outcome, uint256 usdcAmount) external {
         require(usdcAmount > 0, "Amount must be greater than 0");
 
         require(usdcToken.transferFrom(msg.sender, address(this), usdcAmount), "USDC transfer failed");
