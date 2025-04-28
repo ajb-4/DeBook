@@ -10,21 +10,22 @@ const NavBar = () => {
 
     const connectToMetamask = async () => {
         try {
-            if (!connected) {
-                await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            if (accounts.length > 0) {
+                setConnected(true);
+                const chainId = 11155111;
+                const provider = new Web3Provider(window.ethereum, chainId);
+                const signer = provider.getSigner();
+                const userBalance = await signer.getBalance();
+                setBalance(parseFloat(ethers.utils.formatEther(userBalance)).toFixed(3));
             } else {
-                await window.ethereum.request({ method: 'eth_accounts', params: [] });
+                setConnected(false);
+                setBalance(null);
             }
-            const chainId = 11155111;
-            const provider = new Web3Provider(window.ethereum, chainId);
-            const signer = provider.getSigner();
-            const userBalance = await signer.getBalance();
-            setBalance(parseFloat(ethers.utils.formatEther(userBalance)).toFixed(3));
-            setConnected(!connected);
         } catch (error) {
             console.error('Error connecting to MetaMask:', error.message);
         }
-    };
+    };    
 
     const mintUsdc = async () => {
         try {
@@ -71,20 +72,28 @@ const NavBar = () => {
 
     useEffect(() => {
         if (window.ethereum) {
-            window.ethereum.on('accountsChanged', async (accounts) => {
+            const handleAccountsChanged = async (accounts) => {
                 if (accounts.length === 0) {
                     setConnected(false);
                     setBalance(null);
                 } else {
+                    setConnected(true);
                     const chainId = 11155111;
                     const provider = new Web3Provider(window.ethereum, chainId);
                     const signer = provider.getSigner();
                     const userBalance = await signer.getBalance();
                     setBalance(parseFloat(ethers.utils.formatEther(userBalance)).toFixed(3));
                 }
-            });
+            };
+    
+            window.ethereum.on('accountsChanged', handleAccountsChanged);
+    
+            return () => {
+                window.ethereum.removeListener('accountsChanged', handleAccountsChanged);
+            };
         }
     }, []);
+    
 
     return (
         <>

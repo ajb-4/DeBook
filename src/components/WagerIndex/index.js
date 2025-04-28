@@ -1,5 +1,7 @@
 import './WagerIndex.css';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getGames } from '../../store/games';
 import { ethers } from 'ethers';
 import DeBookABI from '../DeBookABI.json';
 import WagerModal from '../WagerModal';
@@ -11,6 +13,8 @@ const WagerIndex = () => {
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    const games = useSelector(getGames);
 
     const openModal = () => {
         setShowModal(true);
@@ -57,11 +61,21 @@ const WagerIndex = () => {
                     <button onClick={openModal} id='wagerindex-createwager'>Create Wager</button>
                 </div>
                 <div id='wagerindex-container'>
-                    {wagers.map((wager, index) => (
+                    {/* {wagers.map((wager, index) => (
                         <div id='wagerindexitem' key={index}>
                             <WagerIndexItem wager={wager}/>
                         </div>
-                    ))}
+                    ))} */}
+                    {wagers.map((wager, index) => {
+                        const game = games.find(g => g.id === wager.gameId);
+                        console.log('games from store', games);
+                        debugger
+                        return (
+                            <div id='wagerindexitem' key={index}>
+                                <WagerIndexItem wager={wager} game={game} />
+                            </div>
+                        );
+                    })}
                     {error && <div>{error}</div>}
                 </div>
                     {showModal && (

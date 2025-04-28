@@ -4,12 +4,12 @@ import { ethers } from 'ethers';
 import DeBookABI from '../DeBookABI.json';
 import MockUSDCAbi from '../MockUSDCABI.json';
 
-const WagerIndexItem = ({wager}) => {
+const WagerIndexItem = ({wager, game}) => {
 
     const [loading, setLoading] = useState(false);
     // const [error, setError] = useState("");
 
-
+    console.log("Game:",{game});
 
     //still unable to work through the 'extent react app'
     const acceptWager = async (wager) => {
@@ -114,7 +114,7 @@ const WagerIndexItem = ({wager}) => {
         <div id='wagerindexitem-container'>
             <div id='wagerindexitem-game'>
             <div>GameId: {wager.gameId.slice(0, 10)}</div>
-
+            {game && <div>{game.home_team}</div>}
             </div>
             <div id='wagerindexitem-outcome'>
                 <div>{wager.outcome}</div>
