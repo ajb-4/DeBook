@@ -5,7 +5,7 @@ const { abi: chainlinkConsumerABI } = require("../artifacts/contracts/ChainlinkC
 const { abi: deBookABI } = require("../artifacts/contracts/DeBook.sol/DeBook.json");
 
 async function main() {
-  const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829");
+  const provider = new ethers.providers.JsonRpcProvider(`https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`);
   const privateKey = process.env.DEBOOK_PRIVATE_KEY
 
   const wallet = new ethers.Wallet(privateKey, provider);
