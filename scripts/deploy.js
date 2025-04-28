@@ -6,7 +6,7 @@ const { abi: deBookABI } = require("../artifacts/contracts/DeBook.sol/DeBook.jso
 
 async function main() {
   const provider = new ethers.providers.JsonRpcProvider("https://sepolia.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829");
-  const privateKey = "5ccc29476f2f6058a5d9fd97ed16cb5a4afac5f01568cc8c486b030f5d46cb4c";
+  const privateKey = process.env.DEBOOK_PRIVATE_KEY
 
   const wallet = new ethers.Wallet(privateKey, provider);
   ///

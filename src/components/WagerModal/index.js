@@ -4,7 +4,6 @@ import { ethers } from 'ethers';
 import DeBookABI from '../DeBookABI.json';
 import MockUSDCAbi from '../MockUSDCABI.json';
 
-
 const WagerModal = ({ closeModal, game }) => {
 
     const [amount, setAmount] = useState("");
