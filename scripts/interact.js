@@ -1,8 +1,8 @@
 const { ethers } = require('hardhat');
 
 async function main() {
-    const provider = new ethers.providers.JsonRpcProvider("https://goerli.infura.io/v3/6e2153af26e340c0b0dc7c4d2e8d7829");
-    const privateKey = "12170a444ceec99dcea5abe34facacc8bb15f013cd13f86aa8699c530dbdaa8a";
+    const provider = new ethers.providers.JsonRpcProvider(`https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY}`);
+    const privateKey = process.env.DEBOOK_PRIVATE_KEY;
   
     const wallet = new ethers.Wallet(privateKey, provider);
   
